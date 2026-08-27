@@ -1,6 +1,6 @@
 <div align="center">
 
-# leo-agent-skills
+# agent-skills
 
 ### Colección de skills para agentes de código con IA
 
@@ -20,9 +20,9 @@ Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay depend
 
 ## Skills disponibles
 
-| Skill | Versión | Licencia | Qué hace |
-|---|---|---|---|
-| [`readme-completo`](./readme-completo/SKILL.md) | 2.0 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. |
+| Skill | Versión | Licencia | Qué hace | Se activa cuando decís |
+|---|---|---|---|---|
+| [`readme-completo`](./readme-completo/SKILL.md) | 2.1 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
 
 ### readme-completo en detalle
 
@@ -36,7 +36,7 @@ Sus reglas centrales:
 - **Adaptación por tipo de proyecto**: una librería no necesita manual de usuario; una app de escritorio sí necesita backups y troubleshooting.
 - **Detección de contradicciones**: README dice React 18, `package.json` dice React 19 → gana el `package.json`.
 
-Se activa con: "readme", "crear readme", "mejorar readme", "documentar proyecto", "hacer readme completo".
+Tipos de proyecto que reconoce: aplicaciones web, desktop y móviles, CLIs, librerías, APIs, backends, monorepos, infraestructura, proyectos educativos y —desde la v2.1— **skills de agente, colecciones de skills y plugins**. Este README fue generado con ella.
 
 ## Arquitectura: progressive disclosure
 
@@ -46,10 +46,10 @@ El problema: una skill monolítica ocupa contexto del agente **siempre**, inclus
 
 La solución: `SKILL.md` contiene solo el núcleo — reglas fundamentales, clasificación del proyecto, workflow y validación. El conocimiento especializado vive en `references/` y se carga **bajo demanda**.
 
-| Antes (v1.0) | Después (v2.0) |
+| Antes (v1.0) | Ahora (v2.1) |
 |---|---|
-| 1 archivo, 2181 líneas | `SKILL.md` de 524 líneas + 6 referencias |
-| 33 KB siempre en contexto | 13 KB siempre + lo que el proyecto pida |
+| 1 archivo, 2181 líneas | `SKILL.md` de 545 líneas + 7 referencias |
+| 33 KB siempre en contexto | ~15 KB siempre + solo lo que el proyecto pida |
 
 Las referencias y cuándo se consultan:
 
@@ -59,6 +59,7 @@ Las referencias y cuándo se consultan:
 | [`readme-structure.md`](./readme-completo/references/readme-structure.md) | Ya se clasificó el proyecto y toca elegir secciones |
 | [`user-documentation.md`](./readme-completo/references/user-documentation.md) | El proyecto tiene usuarios finales o interfaz gráfica |
 | [`developer-documentation.md`](./readme-completo/references/developer-documentation.md) | El repo va a ser usado o modificado por desarrolladores |
+| [`skill-projects.md`](./readme-completo/references/skill-projects.md) | El repo **es** una skill, colección de skills o plugin de agente |
 | [`data-and-security.md`](./readme-completo/references/data-and-security.md) | Hay datos, base de datos, autenticación, secretos o backups |
 | [`writing-style.md`](./readme-completo/references/writing-style.md) | Se está en la redacción final |
 
@@ -119,6 +120,7 @@ agent-skills/
 │       ├── readme-structure.md
 │       ├── user-documentation.md
 │       ├── developer-documentation.md
+│       ├── skill-projects.md
 │       ├── data-and-security.md
 │       └── writing-style.md
 └── README.md
@@ -128,6 +130,54 @@ agent-skills/
 > - Skill nueva → carpeta nueva con su `SKILL.md`
 > - Reglas centrales de una skill → su `SKILL.md`
 > - Conocimiento que solo aplica a veces → su `references/`
+
+## Anatomía de una skill
+
+Si nunca escribiste una, esto es lo que tenés que entender antes de tocar un solo archivo.
+
+### El frontmatter es un clasificador, no metadata decorativa
+
+De toda la skill, el agente ve **siempre** dos campos: `name` y `description`. Nada más.
+
+```yaml
+---
+name: readme-completo
+description: "Trigger: readme, README, crear readme... Inspecciona profundamente un repositorio y crea o actualiza un README profesional..."
+---
+```
+
+El `description` es lo que decide si la skill se activa o se queda dormida. Por eso arranca listando triggers literales: son las palabras que el agente va a matchear contra lo que escribe el usuario. Un `description` vago es una skill que nunca se usa.
+
+### El cuerpo se escribe para el modelo, no para una persona
+
+Esto es lo que más cuesta al principio. El `SKILL.md` no es un tutorial ni un artículo de blog: son **instrucciones ejecutables por un LLM**.
+
+| Prosa para humanos | Instrucción para el modelo |
+|---|---|
+| "Es importante verificar la información" | "NUNCA inventes comandos, puertos ni variables de entorno" |
+| "Conviene adaptar el resultado" | "Si detectás `SKILL.md`, cargá `references/skill-projects.md`" |
+| "Podés revisar algunas cosas al final" | Una checklist con casillas concretas |
+
+Imperativo, reglas explícitas, criterios de decisión y tablas de "si pasa X → hacé Y". Ambigüedad = resultado impredecible.
+
+### Progressive disclosure: el contexto se paga
+
+Todo lo que esté en el `SKILL.md` ocupa contexto **cada vez que la skill se activa**, use o no esa parte.
+
+`readme-completo` empezó como un archivo de 2181 líneas. Documentar una librería cargaba igual las reglas de backups, de screenshots y de bases de datos: contexto quemado en conocimiento irrelevante para ese proyecto.
+
+La solución fue partirla:
+
+- **`SKILL.md`** → reglas que aplican siempre: qué no inventar, cómo clasificar el proyecto, el workflow, la validación.
+- **`references/`** → conocimiento condicional, con una tabla en el `SKILL.md` que dice exactamente cuándo cargar cada archivo.
+
+> 💡 Regla práctica: si una sección de tu skill empieza con "cuando el proyecto sea X...", esa sección es candidata a salir a `references/`.
+
+### Cómo la probás
+
+No hay tests unitarios acá. Se prueba activándola en un repositorio real y verificando el resultado contra los hechos: ¿los comandos existen?, ¿las versiones coinciden?, ¿los paths son reales?
+
+Por eso `readme-completo` termina con una checklist de validación: es su forma de auto-verificarse antes de entregar.
 
 ## Agregar una skill nueva
 
