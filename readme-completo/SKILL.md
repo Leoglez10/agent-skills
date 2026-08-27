@@ -4,7 +4,7 @@ description: "Trigger: readme, README, crear readme, mejorar readme, documentar 
 license: Apache-2.0
 metadata:
   author: "Leoglez10"
-  version: "2.0"
+  version: "2.1"
 ---
 
 # Skill: README Completo
@@ -184,6 +184,7 @@ Después consulta únicamente las referencias necesarias.
 | `references/readme-structure.md` | Ya clasificaste el proyecto y toca elegir las secciones del README |
 | `references/user-documentation.md` | El proyecto tiene usuarios finales o interfaz de usuario |
 | `references/developer-documentation.md` | El repositorio va a ser usado o modificado por desarrolladores |
+| `references/skill-projects.md` | El repositorio ES una skill, una colección de skills o un plugin de agente (hay `SKILL.md`, `agents/`, `commands/`, `plugin.json` o `.claude-plugin/`) |
 | `references/data-and-security.md` | El proyecto almacena datos, usa base de datos, maneja autenticación, secretos, backups, migraciones o expone servicios |
 | `references/writing-style.md` | Estás en la redacción final |
 
@@ -260,9 +261,15 @@ Puede ser:
 * SaaS;
 * proyecto open-source;
 * infraestructura;
-* librería reusable.
+* librería reusable;
+* skill de agente, colección de skills o plugin.
 
 La estructura final del README debe adaptarse al tipo.
+
+Si detectas `SKILL.md`, `agents/`, `commands/`, `hooks/`, `plugin.json` o
+`.claude-plugin/`, el proyecto NO es una aplicación: es un artefacto que se
+instala en un agente y se activa por contexto. Carga
+`references/skill-projects.md` antes de diseñar la estructura.
 
 NO copies automáticamente todas las secciones descritas en `references/readme-structure.md`.
 
@@ -317,6 +324,18 @@ Quiere saber:
 * riesgos;
 * deuda técnica;
 * documentación adicional.
+
+### Aprendiz (repos educativos y colecciones de skills)
+
+Quiere saber:
+
+* cómo funciona el mecanismo, no solo cómo usarlo;
+* por qué el proyecto está estructurado así;
+* cómo crear su propia versión;
+* qué convenciones seguir.
+
+Esta audiencia aplica cuando el repo existe para enseñar o para ser extendido por
+terceros. En ese caso el README necesita una sección didáctica, no solo referencia.
 
 Organiza el README de menor a mayor complejidad técnica.
 
@@ -466,6 +485,8 @@ Antes de terminar el README realiza esta checklist.
 | Código contradice documentación        | El código/config actual prevalece           |
 | Hay posible secreto                    | No incluirlo y advertir al usuario          |
 | Hay información imposible de verificar | Omitirla o marcarla pendiente               |
+| El repo contiene `SKILL.md`            | Cargar `references/skill-projects.md`; no documentar comandos de build inexistentes |
+| El repo existe para enseñar o extender | Incluir sección didáctica con ejemplos reales del propio repo |
 
 ---
 
