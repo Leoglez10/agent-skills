@@ -121,8 +121,6 @@ agent-skills/
 │       ├── developer-documentation.md
 │       ├── data-and-security.md
 │       └── writing-style.md
-├── .atl/
-│   └── skill-registry.md     ← Índice local auto-generado (no es contenido del repo)
 └── README.md
 ```
 
