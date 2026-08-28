@@ -73,6 +73,28 @@ Las referencias y cuándo se consultan:
 
 ### Instalar una skill
 
+#### Opción 1: con `npx` (recomendada)
+
+Con el CLI abierto de [skills](https://github.com/vercel-labs/skills) (soporta Claude Code, OpenCode, Codex, Cursor y más), un solo comando clona, detecta y instala:
+
+```bash
+npx skills add Leoglez10/agent-skills
+```
+
+Variantes útiles:
+
+```bash
+# Ver qué skills hay sin instalar nada
+npx skills add Leoglez10/agent-skills --list
+
+# Instalar solo readme-completo, a un agente específico, sin prompts
+npx skills add Leoglez10/agent-skills --skill readme-completo -g -a claude-code -y
+```
+
+El CLI detecta tus agentes instalados y te pregunta a cuál instalar (o usa `-a` para elegirlo vos). Por defecto instala por symlink; agregá `--copy` si preferís una copia física.
+
+#### Opción 2: manual
+
 Cloná el repo:
 
 ```bash
