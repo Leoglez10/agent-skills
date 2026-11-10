@@ -224,13 +224,27 @@ Si existe un procedimiento especial para generar screenshots, documéntalo breve
 
 Describe funcionalidades verificadas.
 
-Formato recomendado:
+Formato recomendado: nombre corto en negrita + beneficio en una línea.
 
 ```markdown
-- ✅ ...
-- ✅ ...
-- ✅ ...
+- **Dictado por voz**: el evaluador habla y la IA llena el campo correcto.
+- **Guardado automático**: cada cambio se guarda en la nube.
 ```
+
+Con más de 6 funciones, agrúpalas bajo encabezados `###` (no texto suelto):
+
+```markdown
+### Captura
+
+- **...**: ...
+
+### Reportes
+
+- **...**: ...
+```
+
+No pongas ✅ en cada línea: todo lo listado ya está verificado, así que la marca
+no distingue nada. Usa emoji solo para lo que tiene otro estado.
 
 Orden:
 
@@ -250,7 +264,8 @@ No confundas:
 Si algo está incompleto:
 
 ```markdown
-- 🧪 Acceso LAN experimental
+- 🧪 **Acceso LAN**: experimental.
+- 🚧 **Exportar a Excel**: parcial, solo estudios cerrados.
 ```
 
 ---

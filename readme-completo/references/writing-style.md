@@ -83,6 +83,9 @@ Ejemplo:
 
 No poner emoji en cada oración.
 
+Un marcador repetido en todas las líneas de una lista (por ejemplo `- ✅` en cada
+función) no comunica nada. Marca solo lo que distingue algo.
+
 La función es navegación visual, no decoración.
 
 ---
