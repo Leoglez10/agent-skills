@@ -4,7 +4,7 @@ description: "Trigger: readme, README, crear readme, mejorar readme, documentar 
 license: Apache-2.0
 metadata:
   author: "Leoglez10"
-  version: "2.1"
+  version: "2.2"
 ---
 
 # Skill: README Completo
@@ -186,6 +186,7 @@ Después consulta únicamente las referencias necesarias.
 | `references/developer-documentation.md` | El repositorio va a ser usado o modificado por desarrolladores |
 | `references/skill-projects.md` | El repositorio ES una skill, una colección de skills o un plugin de agente (hay `SKILL.md`, `agents/`, `commands/`, `plugin.json` o `.claude-plugin/`) |
 | `references/data-and-security.md` | El proyecto almacena datos, usa base de datos, maneja autenticación, secretos, backups, migraciones o expone servicios |
+| `references/badges-and-credits.md` | El README va a llevar badges, el proyecto necesita topics/tags de descubrimiento, o el proyecto deriva de otro repositorio (fork, plantilla, port, código vendorizado) o reutiliza código de terceros |
 | `references/writing-style.md` | Estás en la redacción final |
 
 `user-documentation.md` NO se consulta para librerías internas, paquetes o
@@ -391,9 +392,25 @@ Si existen:
 
 * logo;
 * screenshots;
-* badges.
+* badges;
 
 No inventarlos.
+
+Cada badge debe apuntar a un dato comprobable: workflow real, release real,
+licencia existente. Un badge sin respaldo es una afirmación falsa.
+
+Material entregable por separado: los **topics/tags del repositorio** (GitHub
+Topics, `keywords` del manifest, descripción "About") no se escriben en el
+Markdown. Si detectas que faltan o están mal, propón el set exacto en el reporte
+final y aclara que es un ajuste de configuración del repositorio.
+
+Si el proyecto deriva de otro repositorio (fork, plantilla, scaffold, port,
+código vendorizado) o reutiliza código de terceros, la sección de créditos y
+agradecimientos es obligatoria, con link al origen, autor, qué cambió este repo y
+licencia del origen.
+
+Detalle de sintaxis, catálogo de badges, topics y reglas de atribución:
+`references/badges-and-credits.md`.
 
 ## Paso 7 — Validar
 
@@ -426,6 +443,7 @@ Antes de terminar el README realiza esta checklist.
 * [ ] ¿Explica backup/restore cuando aplica?
 * [ ] ¿Incluye troubleshooting útil?
 * [ ] ¿Incluye estructura del proyecto?
+* [ ] ¿Existe sección de créditos/agradecimientos cuando el proyecto es fork, derivado o reutiliza código de terceros?
 
 ## Técnica
 
@@ -447,6 +465,9 @@ Antes de terminar el README realiza esta checklist.
 * [ ] ¿Issues apunta al repo correcto?
 * [ ] ¿Releases apunta al repo correcto?
 * [ ] ¿Los badges apuntan al workflow correcto?
+* [ ] ¿Cada badge tiene un dato comprobable detrás (workflow, release, licencia)?
+* [ ] ¿El badge de CI usa el nombre real del archivo de workflow y la rama real?
+* [ ] ¿Los topics/tags propuestos son reales, en minúsculas y sin espacios?
 
 ## Seguridad
 
@@ -487,6 +508,10 @@ Antes de terminar el README realiza esta checklist.
 | Hay información imposible de verificar | Omitirla o marcarla pendiente               |
 | El repo contiene `SKILL.md`            | Cargar `references/skill-projects.md`; no documentar comandos de build inexistentes |
 | El repo existe para enseñar o extender | Incluir sección didáctica con ejemplos reales del propio repo |
+| El proyecto es fork o derivado de otro repo | Sección obligatoria de créditos y agradecimientos con origen, autor, cambios y licencia |
+| El proyecto reutiliza código, skill o arquitectura de terceros | Agradecimientos breves con links verificables |
+| El usuario pide "poner tags" | Distinguir badges (README) de topics del repositorio (configuración) y entregar el set real por separado |
+| Faltan topics o la descripción "About" es genérica | Proponerlos en el reporte final, nunca inventarlos dentro del README |
 
 ---
 
@@ -504,6 +529,11 @@ README actualizado:
 - inconsistencias corregidas
 - información importante encontrada
 - puntos que requieren confirmación
+
+Ajustes de repositorio propuestos (no aplicados por esta skill):
+- badges sugeridos y el dato que respalda cada uno
+- topics/tags de GitHub propuestos
+- sección de créditos requerida por ascendencia externa, si aplica
 ```
 
 Si el usuario pidió modificar directamente el repositorio:

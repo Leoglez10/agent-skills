@@ -83,6 +83,21 @@ No inventes coverage.
 
 No declares una licencia que el repositorio no tenga.
 
+> Un badge es una afirmación verificable: si no puedes comprobar el dato detrás,
+> no va.
+
+## Distinción importante: badge vs tag
+
+* **Badge** → vive en el README y se ve dentro de la página.
+* **Tag / topic** → vive en la configuración del repositorio (GitHub Topics,
+  `keywords` del manifest, descripción "About") y sirve para descubrimiento.
+
+No son intercambiables. Si el README dice "tags del proyecto", no confundas eso
+con badges, y no declares topics que no se configuraron en el repositorio.
+
+Para sintaxis de badges, catálogo de topics y errores frecuentes, consulta
+`references/badges-and-credits.md`.
+
 ---
 
 # 2. Explicación de audiencia
@@ -371,7 +386,11 @@ Actualmente el repositorio no incluye una licencia pública.
 
 ---
 
-# 37. Créditos
+# 37. Créditos y agradecimientos
+
+Dos casos distintos. No los mezcles.
+
+## Caso A — autoría propia
 
 Al final puede incluirse:
 
@@ -394,6 +413,51 @@ Incluye:
 * links relevantes.
 
 No atribuyas autoría basándote únicamente en el owner de GitHub si existen más contributors relevantes.
+
+## Caso B — el proyecto deriva de otro repositorio
+
+Obligatorio cuando el proyecto es un **fork**, está **basado en** otro repo,
+plantilla o scaffold, es un **port o adaptación**, o incorpora código vendorizado.
+
+La sección debe responder cinco cosas:
+
+1. qué se tomó;
+2. de dónde (link real);
+3. quién lo hizo;
+4. qué cambió este repositorio;
+5. bajo qué licencia estaba el origen.
+
+Ejemplo:
+
+```markdown
+## Créditos y agradecimientos
+
+Este proyecto está basado en [Nombre original](https://github.com/owner/repo),
+creado por [Autor](https://github.com/autor) bajo licencia MIT.
+
+Qué cambió este repositorio: nueva interfaz de configuración, migración a SQLite
+y soporte para Windows. El aviso de copyright original se conserva en
+[LICENSE](LICENSE).
+```
+
+Reglas duras:
+
+* no borres avisos de copyright del origen;
+* conserva `LICENSE`, `NOTICE` o el archivo equivalente que la licencia exija;
+* no relicencies a MIT un derivado de GPL/AGPL;
+* no presentes como propio un trabajo ajeno;
+* no declares "inspirado en" si en realidad se copió código.
+
+Verifica la ascendencia con evidencia real (`git remote -v`, historial de autoría,
+`LICENSE`/`NOTICE`, campos de fork en el manifest) antes de escribir la sección:
+consulta `references/badges-and-credits.md`.
+
+## Agradecimientos técnicos
+
+Cuando el proyecto reutilice de forma sustancial una skill, una arquitectura o un
+proyecto de terceros, escribe una lista breve de agradecimientos con links
+verificables. No conviertas la sección en un inventario de dependencias: eso ya
+está en el manifest.
 
 ---
 

@@ -3,6 +3,9 @@
 Consultar durante la redacción final: lenguaje claro, badges, callouts, tablas,
 screenshots, emojis, tono, ejemplos y eliminación de lenguaje genérico de IA.
 
+Sintaxis de badges, topics y redacción de créditos y agradecimientos:
+`references/badges-and-credits.md`.
+
 
 # Reglas de redacción
 
