@@ -24,7 +24,7 @@ Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay depend
 
 | Skill | Versión | Licencia | Qué hace | Se activa cuando decís |
 |---|---|---|---|---|
-| [`readme-completo`](./readme-completo/SKILL.md) | 2.1 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
+| [`readme-completo`](./readme-completo/SKILL.md) | 2.2 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
 
 ### readme-completo en detalle
 
@@ -37,6 +37,9 @@ Sus reglas centrales:
 - **Política contra documentación falsa**: nunca inventa comandos, puertos, variables de entorno, backups, releases ni licencias.
 - **Adaptación por tipo de proyecto**: una librería no necesita manual de usuario; una app de escritorio sí necesita backups y troubleshooting.
 - **Detección de contradicciones**: README dice React 18, `package.json` dice React 19 → gana el `package.json`.
+- **Badges verificables**: cada badge debe respaldarse en un dato comprobable (workflow real, release real, licencia existente). Un badge sin respaldo es una afirmación falsa.
+- **Badge ≠ tag**: los badges viven en el README; los topics de GitHub y las keywords del manifest son configuración del repositorio y se entregan como propuesta aparte.
+- **Créditos obligatorios por ascendencia**: si el proyecto es un fork, está basado en otro repo, es un port o reutiliza código de terceros, el README debe declarar origen, autor, qué cambió y licencia del origen. `—desde la v2.2—`
 
 Tipos de proyecto que reconoce: aplicaciones web, desktop y móviles, CLIs, librerías, APIs, backends, monorepos, infraestructura, proyectos educativos y —desde la v2.1— **skills de agente, colecciones de skills y plugins**. Este README fue generado con ella.
 
@@ -48,9 +51,9 @@ El problema: una skill monolítica ocupa contexto del agente **siempre**, inclus
 
 La solución: `SKILL.md` contiene solo el núcleo — reglas fundamentales, clasificación del proyecto, workflow y validación. El conocimiento especializado vive en `references/` y se carga **bajo demanda**.
 
-| Antes (v1.0) | Ahora (v2.1) |
+| Antes (v1.0) | Ahora (v2.2) |
 |---|---|
-| 1 archivo, 2181 líneas | `SKILL.md` de 545 líneas + 7 referencias |
+| 1 archivo, 2181 líneas | `SKILL.md` de 575 líneas + 8 referencias |
 | 33 KB siempre en contexto | ~15 KB siempre + solo lo que el proyecto pida |
 
 Las referencias y cuándo se consultan:
@@ -63,6 +66,7 @@ Las referencias y cuándo se consultan:
 | [`developer-documentation.md`](./readme-completo/references/developer-documentation.md) | El repo va a ser usado o modificado por desarrolladores |
 | [`skill-projects.md`](./readme-completo/references/skill-projects.md) | El repo **es** una skill, colección de skills o plugin de agente |
 | [`data-and-security.md`](./readme-completo/references/data-and-security.md) | Hay datos, base de datos, autenticación, secretos o backups |
+| [`badges-and-credits.md`](./readme-completo/references/badges-and-credits.md) | El README va a llevar badges, el proyecto necesita topics de descubrimiento, o deriva de otro repositorio (fork, plantilla, port, código vendorizado) |
 | [`writing-style.md`](./readme-completo/references/writing-style.md) | Se está en la redacción final |
 
 > 💡 El patrón es reutilizable: si escribís una skill que crece más allá de unas cientos de líneas, separá el núcleo de lo especializado y documentá en el `SKILL.md` cuándo cargar cada pieza.
@@ -146,6 +150,7 @@ agent-skills/
 │       ├── developer-documentation.md
 │       ├── skill-projects.md
 │       ├── data-and-security.md
+│       ├── badges-and-credits.md
 │       └── writing-style.md
 └── README.md
 ```
