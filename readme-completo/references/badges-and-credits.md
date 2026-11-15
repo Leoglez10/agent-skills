@@ -1,7 +1,7 @@
 # Reference — Badges, tags y créditos
 
-Consultar cuando el README vaya a llevar badges, cuando el proyecto necesite tags
-de descubrimiento (GitHub Topics), o cuando el proyecto derive de otro repositorio
+Consultar SIEMPRE para entregar los tags de descubrimiento (GitHub Topics) en el
+reporte final; además cuando el README vaya a llevar badges, o cuando el proyecto derive de otro repositorio
 (fork, plantilla, port, código vendorizado, adaptación) o reutilice código de
 terceros.
 
