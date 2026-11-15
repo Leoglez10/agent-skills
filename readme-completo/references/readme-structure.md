@@ -92,10 +92,10 @@ No declares una licencia que el repositorio no tenga.
 * **Tag / topic** → vive en la configuración del repositorio (GitHub Topics,
   `keywords` del manifest, descripción "About") y sirve para descubrimiento.
 
-No son intercambiables. Si el README dice "tags del proyecto", no confundas eso
-con badges, y no declares topics que no se configuraron en el repositorio.
+No son intercambiables. Esta skill solo maneja badges; los topics son de la
+skill `repo-presentacion`. No declares topics que no se configuraron.
 
-Para sintaxis de badges, catálogo de topics y errores frecuentes, consulta
+Para sintaxis de badges y errores frecuentes, consulta
 `references/badges-and-credits.md`.
 
 ---

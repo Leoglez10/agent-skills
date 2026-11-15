@@ -24,7 +24,8 @@ Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay depend
 
 | Skill | Versión | Licencia | Qué hace | Se activa cuando decís |
 |---|---|---|---|---|
-| [`readme-completo`](./readme-completo/SKILL.md) | 2.2 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
+| [`readme-completo`](./readme-completo/SKILL.md) | 2.3 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
+| [`repo-presentacion`](./repo-presentacion/SKILL.md) | 1.0 | Apache-2.0 | Audita cómo se ve un repositorio en GitHub más allá del README (About, topics, social preview, releases, archivos de comunidad) y entrega mejoras con comandos `gh` listos, sin aplicarlas sin tu aprobación. | `presentación del repo`, `mejorar repo`, `repo completo`, `About`, `topics`, `social preview`, `releases`, `community standards` |
 
 ### readme-completo en detalle
 
@@ -66,7 +67,7 @@ Las referencias y cuándo se consultan:
 | [`developer-documentation.md`](./readme-completo/references/developer-documentation.md) | El repo va a ser usado o modificado por desarrolladores |
 | [`skill-projects.md`](./readme-completo/references/skill-projects.md) | El repo **es** una skill, colección de skills o plugin de agente |
 | [`data-and-security.md`](./readme-completo/references/data-and-security.md) | Hay datos, base de datos, autenticación, secretos o backups |
-| [`badges-and-credits.md`](./readme-completo/references/badges-and-credits.md) | El README va a llevar badges, el proyecto necesita topics de descubrimiento, o deriva de otro repositorio (fork, plantilla, port, código vendorizado) |
+| [`badges-and-credits.md`](./readme-completo/references/badges-and-credits.md) | El README va a llevar badges, o deriva de otro repositorio (fork, plantilla, port, código vendorizado) |
 | [`writing-style.md`](./readme-completo/references/writing-style.md) | Se está en la redacción final |
 
 > 💡 El patrón es reutilizable: si escribís una skill que crece más allá de unas cientos de líneas, separá el núcleo de lo especializado y documentá en el `SKILL.md` cuándo cargar cada pieza.
@@ -141,6 +142,7 @@ Así editás el repo y el agente ve el cambio al instante.
 
 ```text
 agent-skills/
+├── .github/                  ← Plantillas de issues y PRs, imagen de vista previa
 ├── readme-completo/
 │   ├── SKILL.md              ← ⭐ Núcleo: reglas, workflow, validación
 │   └── references/           ← Conocimiento especializado, carga bajo demanda
@@ -152,6 +154,15 @@ agent-skills/
 │       ├── data-and-security.md
 │       ├── badges-and-credits.md
 │       └── writing-style.md
+├── repo-presentacion/
+│   ├── SKILL.md              ← Auditoría de la presentación en GitHub
+│   └── references/
+│       ├── audit-commands.md
+│       ├── presentation-checklist.md
+│       └── topics-and-about.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── LICENSE                   ← Apache-2.0
 └── README.md
 ```
 
@@ -229,16 +240,11 @@ metadata:
 
 ## Contribuir
 
-1. Fork o clone del repo.
-2. Creá un branch.
-3. Agregá o mejorá una skill.
-4. Abrí un Pull Request.
+Leé la [guía de contribución](./CONTRIBUTING.md) y el [código de conducta](./CODE_OF_CONDUCT.md). Para bugs o ideas, abrí un [issue](https://github.com/Leoglez10/agent-skills/issues/new/choose) con la plantilla.
 
 ## Licencia
 
-La skill `readme-completo` declara **Apache-2.0** en su frontmatter.
-
-> ⚠️ El repositorio todavía no incluye un archivo `LICENSE` a nivel raíz. Si vas a redistribuir las skills, agregalo.
+[Apache-2.0](./LICENSE). Cada skill lo declara también en su frontmatter.
 
 ---
 

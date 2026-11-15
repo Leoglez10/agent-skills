@@ -4,7 +4,7 @@ description: "Trigger: readme, README, crear readme, mejorar readme, documentar 
 license: Apache-2.0
 metadata:
   author: "Leoglez10"
-  version: "2.2"
+  version: "2.3"
 ---
 
 # Skill: README Completo
@@ -186,7 +186,7 @@ Después consulta únicamente las referencias necesarias.
 | `references/developer-documentation.md` | El repositorio va a ser usado o modificado por desarrolladores |
 | `references/skill-projects.md` | El repositorio ES una skill, una colección de skills o un plugin de agente (hay `SKILL.md`, `agents/`, `commands/`, `plugin.json` o `.claude-plugin/`) |
 | `references/data-and-security.md` | El proyecto almacena datos, usa base de datos, maneja autenticación, secretos, backups, migraciones o expone servicios |
-| `references/badges-and-credits.md` | Siempre, para entregar los topics/tags del repositorio; además cuando el README va a llevar badges o el proyecto deriva de otro repositorio (fork, plantilla, port, código vendorizado) o reutiliza código de terceros |
+| `references/badges-and-credits.md` | El README va a llevar badges, o el proyecto deriva de otro repositorio (fork, plantilla, port, código vendorizado) o reutiliza código de terceros |
 | `references/writing-style.md` | Estás en la redacción final |
 
 `user-documentation.md` NO se consulta para librerías internas, paquetes o
@@ -399,20 +399,16 @@ No inventarlos.
 Cada badge debe apuntar a un dato comprobable: workflow real, release real,
 licencia existente. Un badge sin respaldo es una afirmación falsa.
 
-Material entregable por separado: los **topics/tags del repositorio** (GitHub
-Topics, `keywords` del manifest, descripción "About") no se escriben en el
-Markdown. Entrégalos SIEMPRE en el reporte final, aunque ya existan: el set
-exacto de topics (verificados contra el stack y el propósito), la descripción
-"About" y el comando `gh repo edit --add-topic <t1>,<t2>` listo para aplicar.
-Si los actuales son correctos, lístalos como verificados; si faltan o están mal,
-propón el set corregido. Aclara que es un ajuste de configuración del repositorio.
+Fuera de alcance: topics, descripción "About", social preview, releases y
+archivos de comunidad son configuración del repositorio, no del README. No los
+propongas aquí; si el usuario los pide, usa la skill `repo-presentacion`.
 
 Si el proyecto deriva de otro repositorio (fork, plantilla, scaffold, port,
 código vendorizado) o reutiliza código de terceros, la sección de créditos y
 agradecimientos es obligatoria, con link al origen, autor, qué cambió este repo y
 licencia del origen.
 
-Detalle de sintaxis, catálogo de badges, topics y reglas de atribución:
+Detalle de sintaxis, catálogo de badges y reglas de atribución:
 `references/badges-and-credits.md`.
 
 ## Paso 7 — Validar
@@ -470,7 +466,6 @@ Antes de terminar el README realiza esta checklist.
 * [ ] ¿Los badges apuntan al workflow correcto?
 * [ ] ¿Cada badge tiene un dato comprobable detrás (workflow, release, licencia)?
 * [ ] ¿El badge de CI usa el nombre real del archivo de workflow y la rama real?
-* [ ] ¿El reporte final incluye los topics/tags (siempre) y son reales, en minúsculas y sin espacios?
 
 ## Seguridad
 
@@ -513,8 +508,7 @@ Antes de terminar el README realiza esta checklist.
 | El repo existe para enseñar o extender | Incluir sección didáctica con ejemplos reales del propio repo |
 | El proyecto es fork o derivado de otro repo | Sección obligatoria de créditos y agradecimientos con origen, autor, cambios y licencia |
 | El proyecto reutiliza código, skill o arquitectura de terceros | Agradecimientos breves con links verificables |
-| El usuario pide "poner tags" | Distinguir badges (README) de topics del repositorio (configuración) y entregar el set real por separado |
-| Faltan topics o la descripción "About" es genérica | Proponerlos en el reporte final (sección obligatoria), nunca inventarlos dentro del README |
+| El usuario pide "poner tags" | Si son badges, van en el README. Si son topics o "About", usar `repo-presentacion` |
 
 ---
 
@@ -533,11 +527,9 @@ README actualizado:
 - información importante encontrada
 - puntos que requieren confirmación
 
-Ajustes de repositorio propuestos (no aplicados por esta skill):
-- badges sugeridos y el dato que respalda cada uno
-- topics/tags de GitHub (siempre: actuales verificados o set propuesto) + comando `gh repo edit --add-topic`
-- descripción "About" propuesta
-- sección de créditos requerida por ascendencia externa, si aplica
+Badges y créditos:
+- badges incluidos y el dato que respalda cada uno
+- sección de créditos por ascendencia externa, si aplica
 ```
 
 Si el usuario pidió modificar directamente el repositorio:

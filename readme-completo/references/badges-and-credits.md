@@ -1,7 +1,6 @@
-# Reference — Badges, tags y créditos
+# Reference — Badges y créditos
 
-Consultar SIEMPRE para entregar los tags de descubrimiento (GitHub Topics) en el
-reporte final; además cuando el README vaya a llevar badges, o cuando el proyecto derive de otro repositorio
+Consultar cuando el README vaya a llevar badges, o cuando el proyecto derive de otro repositorio
 (fork, plantilla, port, código vendorizado, adaptación) o reutilice código de
 terceros.
 
@@ -11,17 +10,16 @@ Este archivo NO se consulta para un README mínimo sin badges ni ascendencia ext
 
 # Principio común
 
-> Un badge y un tag son afirmaciones verificables.
+> Un badge y un crédito son afirmaciones verificables.
 
-Si no puedes comprobar el dato detrás del badge o del tag, no va.
+Si no puedes comprobar el dato detrás, no va.
 
 - Badge de CI → debe existir el workflow.
 - Badge de versión → debe existir el release o el manifest.
 - Badge de licencia → debe existir `LICENSE`.
-- Topic `rust` → el proyecto debe estar escrito en Rust.
 - Crédito a un repo → debe existir ese repo y la relación debe ser real.
 
-Un badge roto o un topic mentiroso daña más que su ausencia.
+Un badge roto o un crédito falso daña más que su ausencia.
 
 ---
 
@@ -128,68 +126,7 @@ El hero es una tarjeta de identidad, no un tablero.
 
 ---
 
-# 2. Tags de la página (GitHub Topics y keywords)
-
-## Diferencia clave
-
-| Elemento | Dónde vive | Para qué sirve |
-|---|---|---|
-| Badge | README | informar visualmente dentro de la página |
-| Topic | Configuración del repo (GitHub) | descubrimiento en búsquedas y topic pages |
-| Keyword del manifest | `package.json`, `pyproject.toml`, etc. | indexación de registros y tooling |
-| Descripción "About" | Configuración del repo | primera línea que ve un buscador |
-
-Los tres últimos son "tags" de la página. No los confundas con badges y no
-declares que los pusiste si no los pusiste: son ajustes del repositorio, no del
-Markdown.
-
-## Reglas de GitHub Topics
-
-- máximo 20 topics por repo;
-- minúsculas;
-- sin espacios: usar `-`;
-- sin `#`;
-- nombres reales del dominio, no sinónimos acumulados;
-- derivados del stack y del propósito real.
-
-Cómo obtenerlos:
-
-1. `keywords` del manifest, si existen;
-2. dependencias y stack reales (`package.json`, `pyproject.toml`, `Cargo.toml`,
-   `go.mod`);
-3. tipo de proyecto (cli, desktop-app, api, monorepo, agent-skill);
-4. dominio funcional real (loans, invoicing, backups…), solo si el proyecto lo hace.
-
-Ejemplo de set razonable para una app de escritorio con Tauri y SQLite:
-
-```text
-tauri, rust, sqlite, desktop-app, windows, offline-first
-```
-
-Ejemplo de lo que NO se hace:
-
-```text
-hacktoberfest, awesome, ai, blockchain, web3, python
-```
-
-si nada de eso describe el proyecto.
-
-## Keywords del manifest
-
-Si el proyecto publica un paquete, verifica que `keywords` (o el campo equivalente)
-exista y coincida con los topics. Si no existe y el proyecto se publica, puedes
-proponerlo como ajuste aparte; NO lo inventes dentro del README como si ya
-estuviera.
-
-## Descripción de la página
-
-La descripción "About" del repo debe ser una frase concreta, no marketing.
-Si está vacía o es genérica, señálalo como pendiente en el reporte final; no la
-inventes en el README.
-
----
-
-# 3. Créditos y agradecimientos
+# 2. Créditos y agradecimientos
 
 ## Cuándo esta sección es obligatoria
 
@@ -292,9 +229,7 @@ El aviso de copyright original se conserva en [LICENSE](LICENSE).
 * [ ] ¿Cada badge apunta a un dato que existe (workflow, release, licencia)?
 * [ ] ¿El badge de CI usa el nombre real del archivo de workflow y la rama real?
 * [ ] ¿Hay un badge por dato, sin repetición?
-* [ ] ¿Los topics propuestos son reales, en minúsculas y sin espacios?
-* [ ] ¿Los topics se derivan del stack y del propósito, no de tendencias?
-* [ ] ¿Se distingue badge (README) de topic (configuración del repo)?
+* [ ] ¿Se distingue badge (README) de topic (configuración del repo, fuera de esta skill)?
 * [ ] ¿Si el proyecto es fork o derivado, existe sección de créditos con los cinco elementos?
 * [ ] ¿Se conserva el copyright, `LICENSE` y `NOTICE` del origen?
 * [ ] ¿La licencia declarada es compatible con la del origen?
