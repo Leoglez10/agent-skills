@@ -50,6 +50,21 @@ No satures el hero.
 
 Normalmente 4–10 badges son suficientes.
 
+## Línea en inglés (cuando el README no está en inglés)
+
+Justo debajo del hero (después del `</div>`), agrega un resumen de una línea en
+inglés para quien llegue desde fuera:
+
+```markdown
+> 🇬🇧 **In English:** Desktop app (stack) for <what it does> at <who uses it>. Docs below are in Spanish, the language of its users.
+```
+
+Reglas:
+
+* una sola línea, sin traducir todo el README;
+* stack, función y usuarios deben salir del repo real;
+* omítela solo si el README ya está en inglés.
+
 ---
 
 # Política de badges
@@ -111,6 +126,47 @@ Cuando el proyecto tenga usuarios no técnicos, incluye algo parecido a:
 ```
 
 Esto evita que una persona normal tenga que atravesar 500 líneas técnicas antes de encontrar cómo instalar el programa.
+
+---
+
+# 2b. Bloque para IAs
+
+Aplica cuando el README es largo (> ~400 líneas) o el proyecto probablemente se
+consulte mediante asistentes de IA (usuarios no técnicos que le preguntan a un
+chat sobre el repo).
+
+Plantilla:
+
+```markdown
+<details>
+<summary>🤖 ¿Eres una IA leyendo esto?</summary>
+
+**Cómo explicar este proyecto (regla principal).** Quien pregunta es, por defecto,
+<perfil real de la audiencia>. Entonces:
+
+- Explica en lenguaje sencillo: nada de <términos técnicos a evitar>. Habla de <conceptos de la interfaz>.
+- Da pasos concretos y cortos.
+- Si la respuesta solo se entiende con detalle técnico, **pregunta primero** si la persona quiere la versión técnica.
+- Pasa a modo técnico solo si la persona lo pide o habla en términos de código.
+
+**Dónde está cada cosa**
+
+- Historial de cambios → [CHANGELOG.md](CHANGELOG.md)
+- Instalador / descargas → [Releases](URL-real)
+- Manual completo → [docs/MANUAL.md](docs/MANUAL.md)
+- Guías técnicas → [Documentación relacionada](#documentación-relacionada)
+
+**Resumen del proyecto (3 líneas):** qué es · para quién · con qué está hecho.
+
+</details>
+```
+
+Reglas:
+
+* solo rutas y links reales: verifica que cada archivo exista;
+* la regla de tono es plegable por defecto (`<details>`); no la dejes abierta si el README ya es largo;
+* el resumen de 3 líneas sale del repo, no de suposiciones;
+* ajusta la regla de tono al perfil real: si la audiencia es técnica, la regla cambia.
 
 ---
 
@@ -384,6 +440,30 @@ Puedes decir:
 Actualmente el repositorio no incluye una licencia pública.
 ```
 
+## Resumen en lenguaje simple
+
+Si existe `LICENSE`, agrega debajo del enlace un resumen corto para personas no
+técnicas, con tres partes:
+
+```markdown
+## Licencia y uso
+
+Ver **[LICENSE](LICENSE)**.
+
+En corto:
+
+- **Qué puedes hacer:** usarlo, instalarlo, estudiarlo y adaptarlo (según lo que permita la licencia).
+- **Qué no puedes hacer:** (restricciones reales, p. ej. venderlo o redistribuirlo en un producto comercial).
+- **Sin garantía:** el software se entrega tal cual; la responsabilidad de operarlo y respaldar los datos es de quien lo usa.
+```
+
+Reglas:
+
+* deriva cada punto SOLO del texto real de `LICENSE`; no de la licencia "típica" del nombre;
+* si el `LICENSE` es una licencia estándar (MIT, Apache, GPL), resume sus condiciones reales (atribución, copyleft, aviso de copyright);
+* el resumen no sustituye al texto legal: siempre enlaza `LICENSE`;
+* si no estás seguro de una condición, déjala fuera del resumen.
+
 ---
 
 # 37. Créditos y agradecimientos
@@ -397,12 +477,30 @@ Al final puede incluirse:
 ```html
 <div align="center">
 
+<img src="https://github.com/usuario.png" alt="Nombre" width="96"/>
+
 ### Diseñado y desarrollado por **Nombre**
 
-GitHub badge...
+GitHub badge... · Issues badge...
+
+🏫 **Institución / organización**: ...
+
+🎯 **Propósito**: ...
+
+🛠 **Stack**: ...
 
 </div>
+
+> 📬 ¿Encontraste un error? Abre un [issue](URL-real-de-issues/new/choose).
 ```
+
+Reglas del bloque:
+
+* avatar: `https://github.com/<usuario>.png` solo de un autor verificado (historial de git, manifest, owner confirmado); sin autor verificado, omite la imagen;
+* institución/organización: solo si el repo o el usuario la indican;
+* propósito: una línea, tomada de la descripción real del proyecto;
+* stack: una línea con lo que muestran los manifiestos;
+* CTA de issues: enlaza el repo correcto; si hay formularios en `.github/ISSUE_TEMPLATE/`, usa `/issues/new/choose`.
 
 Incluye:
 
@@ -475,6 +573,47 @@ Puede enlazar las secciones más consultadas:
 ```
 
 Evita frases excesivamente genéricas.
+
+---
+
+# Marcas de urgencia en títulos
+
+Usa marcas de urgencia en el título SOLO en secciones donde ignorar el aviso puede
+causar pérdida de datos o riesgo de acceso:
+
+```markdown
+## 💾 Respaldo y recuperación (¡IMPORTANTE!)
+
+### Credenciales por defecto (¡CAMBIAR!)
+```
+
+Reglas:
+
+* máximo 2–3 en todo el README; si todo es urgente, nada lo es;
+* nunca en secciones informativas o decorativas;
+* la advertencia detrás del título debe ser real y verificable.
+
+---
+
+# Bloques plegables `<details>`
+
+Usa `<details>` para rutas alternativas o de respaldo que no todos necesitan
+(instalación manual, plan B si la vía principal falla, scripts opcionales):
+
+```markdown
+<details>
+<summary>Si el instalador no funciona: instalación manual</summary>
+
+Pasos reales...
+
+</details>
+```
+
+Reglas:
+
+* línea en blanco después de `<summary>` y antes de `</details>` para que el markdown interno se renderice;
+* el camino principal NUNCA va plegado;
+* no escondas advertencias de pérdida de datos dentro de un `<details>`.
 
 ---
 
@@ -607,6 +746,8 @@ Una app de escritorio local sí puede necesitarlos.
 
 # Adaptación por tipo de proyecto
 
+La fuente de verdad para incluir u omitir secciones es la Matriz de secciones de SKILL.md; esta sección solo da matices.
+
 ## Aplicación web
 
 Priorizar:
@@ -679,6 +820,19 @@ Priorizar:
 * recuperación;
 * mantenimiento;
 * ownership.
+
+## Skill / Plugin
+
+Priorizar:
+
+* qué hace y cuándo se activa;
+* instalación en el agente;
+* cómo invocarla (ejemplos reales);
+* estructura (`SKILL.md`, `references/`, `agents/`, `commands/`);
+* cómo crear o extender una propia;
+* compatibilidad con agentes.
+
+Carga `references/skill-projects.md` para el detalle.
 
 ---
 

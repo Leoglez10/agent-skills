@@ -118,11 +118,72 @@ Parámetros útiles:
 
 ## Cuántos
 
-- 4–10 en el hero;
+- 8–12 en el hero, en las dos filas del set obligatorio de abajo;
 - el resto, dentro de la sección que corresponde (stack en desarrollo, licencia
   en licencia).
 
 El hero es una tarjeta de identidad, no un tablero.
+
+## Set obligatorio de badges (SIEMPRE)
+
+Todo README lleva este set en el hero, centrado, en **dos filas**. No es
+opcional: incluye cada badge cuyo dato exista en el repo. Solo se omite un badge
+cuando su dato no existe (sin workflow → sin badge de CI; sin `LICENSE` → sin
+badge de licencia), y la omisión se menciona en el reporte final.
+
+**Fila 1 — estado e identidad**
+
+| Badge | Etiqueta → mensaje | Fuente del dato | Color sugerido |
+|---|---|---|---|
+| CI / Release | nativo de GitHub Actions (`<Workflow> passing`) | `.github/workflows/<archivo>.yml` | lo pone GitHub |
+| Versión | `versión` → `vX.Y.Z` | último tag/release, o versión del manifest | `blue` |
+| Plataforma | `plataforma` → `macOS \| Windows \| Linux` | targets del instalador, CI matrix o manifest | `blue` |
+| Uso / propósito | `uso` → `Educativo`, `Interno`, `Producción`, `Personal` | README previo, LICENSE, descripción del repo; si no está claro, pregunta | `orange` |
+| Autor | `autor` → `<usuario GitHub>` | `git log`, owner del remote, `authors` del manifest | `purple` |
+
+**Fila 2 — stack y rasgos**
+
+| Badge | Etiqueta → mensaje | Fuente del dato | Color sugerido |
+|---|---|---|---|
+| Lenguaje principal | `<Lenguaje>` → versión/edición (`Rust 2024`, `Node 20`, `Python 3.12`) con `logo=` | manifest (`edition`, `engines`, `requires-python`) | color del lenguaje |
+| UI / framework | `UI` → `React`, `Tauri`, `Rune`, `SwiftUI`… | dependencias del manifest | `5c6bc0` |
+| Servicio o integración clave | `<Servicio>` → qué rol cumple (`AWS` → `Emulator local`) | dependencias, config, docker-compose | color del servicio |
+| Idioma | `idioma` → `español` / `English` | idioma real de la UI y la documentación | `darkgreen` |
+| Licencia | `licencia` → `MIT`, `Apache-2.0`… | archivo `LICENSE` | `green` |
+| Rasgo distintivo | `100%` → `offline`, `sin` → `telemetría`, `self` → `hosted` | solo si el código lo demuestra (sin llamadas de red, sin backend) | `green` |
+
+Plantilla:
+
+```html
+<div align="center">
+
+[![Release](https://github.com/OWNER/REPO/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/release.yml)
+[![versión](https://img.shields.io/badge/versi%C3%B3n-v0.1.2-blue)](https://github.com/OWNER/REPO/releases)
+[![plataforma](https://img.shields.io/badge/plataforma-macOS%20%7C%20Windows%20%7C%20Linux-blue)](#instalación)
+[![uso](https://img.shields.io/badge/uso-Educativo-orange)](#licencia)
+[![autor](https://img.shields.io/badge/autor-OWNER-purple)](https://github.com/OWNER)
+
+[![Rust](https://img.shields.io/badge/Rust-2024-b7410e?logo=rust&logoColor=white)](Cargo.toml)
+[![UI](https://img.shields.io/badge/UI-Rune-5c6bc0)](#stack)
+[![AWS](https://img.shields.io/badge/AWS-Emulator_local-f39c12)](#arquitectura)
+[![idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-darkgreen)](#)
+[![licencia](https://img.shields.io/badge/licencia-MIT-green)](LICENSE)
+[![offline](https://img.shields.io/badge/100%25-offline-green)](#dónde-están-los-datos)
+
+</div>
+```
+
+Reglas del set:
+
+- deja una línea en blanco entre las dos filas para que GitHub las renderice
+  separadas;
+- codifica en la URL los acentos y símbolos (`ó` → `%C3%B3`, `|` → `%7C`,
+  `%` → `%25`, espacio → `%20` o `_`);
+- cada badge enlaza al dato que lo respalda (workflow, releases, `LICENSE`,
+  manifest o la sección del README que lo explica);
+- en la fila 2 usa entre 1 y 3 badges de stack o servicio: los que definen el
+  proyecto, no todas las dependencias;
+- este set reemplaza cualquier badge decorativo: si no informa, no entra.
 
 ---
 
@@ -226,6 +287,8 @@ El aviso de copyright original se conserva en [LICENSE](LICENSE).
 
 # Checklist de esta referencia
 
+* [ ] ¿El hero tiene el set obligatorio en dos filas (estado e identidad / stack y rasgos)?
+* [ ] ¿Cada badge omitido del set está justificado en el reporte (su dato no existe)?
 * [ ] ¿Cada badge apunta a un dato que existe (workflow, release, licencia)?
 * [ ] ¿El badge de CI usa el nombre real del archivo de workflow y la rama real?
 * [ ] ¿Hay un badge por dato, sin repetición?

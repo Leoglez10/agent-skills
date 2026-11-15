@@ -4,7 +4,7 @@ description: "Trigger: readme, README, crear readme, mejorar readme, documentar 
 license: Apache-2.0
 metadata:
   author: "Leoglez10"
-  version: "2.3"
+  version: "2.4"
 ---
 
 # Skill: README Completo
@@ -182,7 +182,7 @@ Después consulta únicamente las referencias necesarias.
 |---|---|
 | `references/repository-inspection.md` | Necesitas saber qué archivos inspeccionar, manifests, lockfiles, configuración, infraestructura, CI/CD, variables de entorno, detección del root real, o cómo tratar un README existente y sus contradicciones |
 | `references/readme-structure.md` | Ya clasificaste el proyecto y toca elegir las secciones del README |
-| `references/user-documentation.md` | El proyecto tiene usuarios finales o interfaz de usuario |
+| `references/user-documentation.md` | El proyecto tiene usuarios finales, interfaz de usuario u operadores/administradores no técnicos |
 | `references/developer-documentation.md` | El repositorio va a ser usado o modificado por desarrolladores |
 | `references/skill-projects.md` | El repositorio ES una skill, una colección de skills o un plugin de agente (hay `SKILL.md`, `agents/`, `commands/`, `plugin.json` o `.claude-plugin/`) |
 | `references/data-and-security.md` | El proyecto almacena datos, usa base de datos, maneja autenticación, secretos, backups, migraciones o expone servicios |
@@ -204,6 +204,8 @@ proyecto.
 Inspeccionar repositorio
         ↓
 Identificar tipo de proyecto
+        ↓
+Aplicar la matriz de secciones
         ↓
 Identificar audiencias
         ↓
@@ -272,7 +274,69 @@ Si detectas `SKILL.md`, `agents/`, `commands/`, `hooks/`, `plugin.json` o
 instala en un agente y se activa por contexto. Carga
 `references/skill-projects.md` antes de diseñar la estructura.
 
-NO copies automáticamente todas las secciones descritas en `references/readme-structure.md`.
+NO copies a ciegas todas las secciones descritas en `references/readme-structure.md`:
+usa la Matriz de secciones por tipo de proyecto (abajo) para decidir qué incluir.
+
+## Matriz de secciones por tipo de proyecto
+
+Leyenda:
+
+* ✅ = siempre. Se incluye por defecto; se omite solo si el repo demuestra que no aplica, y la omisión se dice en el reporte.
+* ◐ = si hay evidencia en el repo (código, config, docs, workflows).
+* — = omitir.
+
+| Sección | Desktop/local | Web/SaaS | Móvil | API/Backend | CLI | Librería | Infra/Monorepo | Skill/Plugin |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Hero + set obligatorio de badges en 2 filas (`badges-and-credits.md`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Línea en inglés (solo si el README no está en inglés) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Nota de audiencia | ✅ | ✅ | ✅ | ◐ | ◐ | ◐ | ◐ | ✅ |
+| Quick start «¿Tienes prisa?» | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Bloque «¿Eres una IA leyendo esto?» | ✅ | ✅ | ✅ | ◐ | ◐ | ◐ | ◐ | ✅ |
+| TOC | ✅ | ✅ | ✅ | ✅ | ✅ | ◐ | ✅ | ✅ |
+| Qué es | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Para quién | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Vista rápida / screenshots | ✅ | ✅ | ✅ | ◐ | ◐ | — | — | ◐ |
+| Funciones | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Instalación usuario final | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Credenciales por defecto | ✅ | ✅ | ✅ | ◐ | — | — | ◐ | — |
+| Flujos por rol | ✅ | ✅ | ✅ | ◐ | ◐ | — | — | ◐ |
+| Flujos complejos a fondo | ✅ | ✅ | ✅ | ◐ | ◐ | — | — | — |
+| Modo prueba | ✅ | ✅ | ✅ | ◐ | ◐ | — | ◐ | — |
+| Dónde están los datos + qué datos guarda | ✅ | ✅ | ✅ | ✅ | ◐ | — | ◐ | — |
+| Respaldo y recuperación | ✅ | ✅ | ✅ | ✅ | ◐ | — | ◐ | — |
+| Nube / varias computadoras | ✅ | ◐ | ✅ | — | — | — | — | — |
+| Mantenimiento | ✅ | ✅ | ✅ | ✅ | ◐ | ◐ | ✅ | ◐ |
+| Actualización | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Troubleshooting | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Mantener el proyecto limpio | ✅ | ✅ | ✅ | ✅ | ◐ | ◐ | ✅ | ◐ |
+| GitHub para principiantes | ✅ | ✅ | ✅ | ◐ | ◐ | ◐ | ◐ | ◐ |
+| Para programadores (stack, setup, scripts, tests, config, dónde sale el build) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Estructura del proyecto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Arquitectura | ✅ | ✅ | ✅ | ✅ | ◐ | ◐ | ✅ | ◐ |
+| FAQ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Contribuir (no programadores + programadores) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Versionado y publicación | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ◐ |
+| Docs relacionadas | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Licencia en lenguaje simple | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Créditos | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Footer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+Reglas de detección (revisa archivos reales, no el nombre del repo):
+
+* `tauri.conf.json`, `src-tauri/`, `electron`, `electron-builder` → Desktop/local.
+* `next`, `vite`, `nuxt`, `remix` u otro framework web + servidor o despliegue → Web/SaaS.
+* `android/`, `ios/`, `expo`, `react-native`, `pubspec.yaml` → Móvil.
+* servidor sin interfaz propia, rutas/endpoints, OpenAPI → API/Backend.
+* `bin` en el manifiesto (`package.json`, `Cargo.toml`, `pyproject.toml`) → CLI.
+* exports de librería sin entrada de aplicación → Librería.
+* `Dockerfile`, `docker-compose`, `terraform/`, `workspaces`, `pnpm-workspace.yaml`, `turbo.json` → Infra/Monorepo.
+* `SKILL.md`, `plugin.json`, `.claude-plugin/` → Skill/Plugin (carga `references/skill-projects.md`).
+
+Reglas de uso:
+
+* Híbridos (p. ej. desktop + API, monorepo con app web y CLI): usa la unión de columnas; cada fila toma el valor más fuerte (✅ > ◐ > —).
+* Ante la duda, incluye la sección: el usuario prefiere READMEs completos; un ✅ solo se omite con evidencia.
+* Toda sección incluida sigue la política anti-invención: sin evidencia en el repo, omite el contenido o márcalo como pendiente; nunca lo inventes.
 
 ---
 
@@ -376,6 +440,8 @@ Contrasta documentación existente contra código.
 
 ## Paso 4 — Diseñar
 
+Aplica la Matriz de secciones; lista las ✅ que omitiste y por qué.
+
 Selecciona las referencias necesarias según la tabla de Progressive Disclosure y consúltalas.
 
 Con `references/readme-structure.md` cargado, crea el índice apropiado para ESE proyecto.
@@ -443,6 +509,15 @@ Antes de terminar el README realiza esta checklist.
 * [ ] ¿Incluye troubleshooting útil?
 * [ ] ¿Incluye estructura del proyecto?
 * [ ] ¿Existe sección de créditos/agradecimientos cuando el proyecto es fork, derivado o reutiliza código de terceros?
+* [ ] ¿Se aplicó la Matriz de secciones y cada omisión de una ✅ está justificada?
+* [ ] ¿Los flujos por rol tienen pasos numerados?
+* [ ] ¿Los flujos complejos tienen reglas, estados y tips?
+* [ ] ¿Explica qué datos guarda el proyecto?
+* [ ] ¿Cubre los tipos de respaldo, el restore con advertencias y la nube/varias computadoras cuando aplica?
+* [ ] ¿Hay una vía de contribución para quienes no programan?
+* [ ] ¿Indica dónde sale el build (ruta exacta del instalador/binario/bundle)?
+* [ ] ¿La licencia está resumida en lenguaje simple, derivada solo del LICENSE real?
+* [ ] ¿Incluye el bloque para IAs cuando el README es largo?
 
 ## Técnica
 
@@ -508,6 +583,9 @@ Antes de terminar el README realiza esta checklist.
 | El repo existe para enseñar o extender | Incluir sección didáctica con ejemplos reales del propio repo |
 | El proyecto es fork o derivado de otro repo | Sección obligatoria de créditos y agradecimientos con origen, autor, cambios y licencia |
 | El proyecto reutiliza código, skill o arquitectura de terceros | Agradecimientos breves con links verificables |
+| App desktop o local con operadores no técnicos | Casi todas las secciones ✅; cargar `references/data-and-security.md` (respaldo a fondo) y `references/user-documentation.md` (flujos complejos) |
+| README largo (> ~400 líneas) | Incluir TOC y bloque «¿Eres una IA leyendo esto?» |
+| El README no está en inglés | Línea de resumen en inglés bajo el hero |
 | El usuario pide "poner tags" | Si son badges, van en el README. Si son topics o "About", usar `repo-presentacion` |
 
 ---

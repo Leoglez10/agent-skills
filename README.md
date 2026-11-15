@@ -26,7 +26,7 @@ Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay depend
 
 | Skill | Versión | Licencia | Qué hace | Se activa cuando dices |
 |---|---|---|---|---|
-| [`readme-completo`](./readme-completo/SKILL.md) | 2.3 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
+| [`readme-completo`](./readme-completo/SKILL.md) | 2.4 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
 | [`repo-presentacion`](./repo-presentacion/SKILL.md) | 1.0 | Apache-2.0 | Audita cómo se ve un repositorio en GitHub más allá del README (About, topics, social preview, releases, archivos de comunidad) y entrega mejoras con comandos `gh` listos, sin aplicarlas sin tu aprobación. | `presentación del repo`, `mejorar repo`, `repo completo`, `About`, `topics`, `social preview`, `releases`, `community standards` |
 
 ### readme-completo en detalle
@@ -43,6 +43,7 @@ Sus reglas centrales:
 - **Badges verificables**: cada badge debe respaldarse en un dato comprobable (workflow real, release real, licencia existente). Un badge sin respaldo es una afirmación falsa.
 - **Badge ≠ tag**: los badges viven en el README; los topics de GitHub y las keywords del manifest son configuración del repositorio y se entregan como propuesta aparte.
 - **Créditos obligatorios por ascendencia**: si el proyecto es un fork, está basado en otro repo, es un port o reutiliza código de terceros, el README debe declarar origen, autor, qué cambió y licencia del origen. `—desde la v2.2—`
+- **Matriz de secciones por tipo de proyecto**: detecta si el repo es desktop, web, móvil, API, CLI, librería, infraestructura o skill, y decide qué secciones incluir. Casi todas van por defecto; solo omite una cuando el repositorio demuestra que no aplica, y lo reporta. Incluye flujos por rol, flujos complejos a fondo, respaldo en la nube, trabajo en varias computadoras, guía de GitHub para principiantes y un bloque para IAs. `—desde la v2.4—`
 
 Tipos de proyecto que reconoce: aplicaciones web, desktop y móviles, CLIs, librerías, APIs, backends, monorepos, infraestructura, proyectos educativos y —desde la v2.1— **skills de agente, colecciones de skills y plugins**. Este README fue generado con ella.
 
