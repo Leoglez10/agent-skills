@@ -93,7 +93,7 @@ Base sobre `readme-structure.md`, con estos ajustes propios del tipo:
    La columna de activación sale del `description`, textual.
 4. **Instalación** — el método real, verificado.
 5. **Uso** — cómo se dispara: frase natural, `/comando`, o automático por contexto.
-   Incluí un ejemplo de invocación real.
+   Incluye un ejemplo de invocación real.
 6. **Arquitectura** — árbol del repo y, si aplica, explicación de progressive
    disclosure: qué vive en `SKILL.md` y qué en `references/`, y por qué
    (presupuesto de contexto).
@@ -107,19 +107,19 @@ Base sobre `readme-structure.md`, con estos ajustes propios del tipo:
 
 Este tipo de repo suele existir para que otros aprendan a escribir skills.
 Cuando el repo tenga esa intención (colección pública, ejemplos, docs de
-convenciones), incluí una sección que explique:
+convenciones), incluye una sección que explique:
 
 * **Frontmatter**: `name` y `description` son lo único que el agente ve siempre.
   El `description` es el clasificador: ahí van los triggers.
 * **Cuerpo**: instrucciones para el modelo, no prosa para humanos. Imperativo,
   reglas explícitas, criterios de decisión.
 * **Progressive disclosure**: `SKILL.md` liviano + `references/` cargadas bajo
-  demanda. Explicá el costo: todo lo que está en `SKILL.md` ocupa contexto en
+  demanda. Explica el costo: todo lo que está en `SKILL.md` ocupa contexto en
   cada activación.
 * **Scripts y assets**: cuándo conviene código determinista en vez de instrucciones.
 * **Cómo probarla**: activarla en un repo real y verificar el resultado.
 
-Usá los ejemplos REALES del repositorio, no ejemplos genéricos. Si una skill del
+Usa los ejemplos REALES del repositorio, no ejemplos genéricos. Si una skill del
 repo usa progressive disclosure, mostrala como caso.
 
 

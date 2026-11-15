@@ -16,13 +16,13 @@ Skills en formato `SKILL.md` (LLM-first) listas para instalar en Claude Code, Op
 
 Una colección de **skills**: instrucciones especializadas en Markdown con frontmatter que le enseñan a un agente de código (Claude Code, OpenCode, Codex, etc.) a ejecutar una tarea concreta con criterio profesional.
 
-Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay dependencias, no hay runtime. Copiás la carpeta y listo.
+Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay dependencias, no hay runtime. Copias la carpeta y listo.
 
-> 💡 Pensalo como un manual de instrucciones que se le inyecta al agente justo antes de hacer el trabajo. El agente no "adivina" cómo documentar un proyecto: lee la skill y sigue su sistema.
+> 💡 Piénsalo como un manual de instrucciones que se le inyecta al agente justo antes de hacer el trabajo. El agente no "adivina" cómo documentar un proyecto: lee la skill y sigue su sistema.
 
 ## Skills disponibles
 
-| Skill | Versión | Licencia | Qué hace | Se activa cuando decís |
+| Skill | Versión | Licencia | Qué hace | Se activa cuando dices |
 |---|---|---|---|---|
 | [`readme-completo`](./readme-completo/SKILL.md) | 2.3 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
 | [`repo-presentacion`](./repo-presentacion/SKILL.md) | 1.0 | Apache-2.0 | Audita cómo se ve un repositorio en GitHub más allá del README (About, topics, social preview, releases, archivos de comunidad) y entrega mejoras con comandos `gh` listos, sin aplicarlas sin tu aprobación. | `presentación del repo`, `mejorar repo`, `repo completo`, `About`, `topics`, `social preview`, `releases`, `community standards` |
@@ -70,7 +70,7 @@ Las referencias y cuándo se consultan:
 | [`badges-and-credits.md`](./readme-completo/references/badges-and-credits.md) | El README va a llevar badges, o deriva de otro repositorio (fork, plantilla, port, código vendorizado) |
 | [`writing-style.md`](./readme-completo/references/writing-style.md) | Se está en la redacción final |
 
-> 💡 El patrón es reutilizable: si escribís una skill que crece más allá de unas cientos de líneas, separá el núcleo de lo especializado y documentá en el `SKILL.md` cuándo cargar cada pieza.
+> 💡 El patrón es reutilizable: si escribes una skill que crece más allá de unas cientos de líneas, separa el núcleo de lo especializado y documenta en el `SKILL.md` cuándo cargar cada pieza.
 
 ## Instalación
 
@@ -98,23 +98,23 @@ npx skills add Leoglez10/agent-skills --list
 npx skills add Leoglez10/agent-skills --skill readme-completo -g -a claude-code -y
 ```
 
-El CLI detecta tus agentes instalados y te pregunta a cuál instalar (o usa `-a` para elegirlo vos). Por defecto instala por symlink; agregá `--copy` si preferís una copia física.
+El CLI detecta tus agentes instalados y te pregunta a cuál instalar (o usa `-a` para elegirlo tú). Por defecto instala por symlink; agrega `--copy` si prefieres una copia física.
 
 #### Opción 2: manual
 
-Cloná el repo:
+Clona el repo:
 
 ```bash
 git clone https://github.com/Leoglez10/agent-skills.git
 ```
 
-Copiá la carpeta completa de la skill a tu directorio de skills:
+Copia la carpeta completa de la skill a tu directorio de skills:
 
 ```bash
 cp -r agent-skills/readme-completo ~/.claude/skills/
 ```
 
-> ⚠️ Copiá la carpeta entera, no solo el `SKILL.md`. Sin `references/` al lado, la skill queda incompleta.
+> ⚠️ Copia la carpeta entera, no solo el `SKILL.md`. Sin `references/` al lado, la skill queda incompleta.
 
 Directorios según el agente:
 
@@ -134,9 +134,9 @@ Si vas a **editar** la skill, un symlink evita mantener dos copias desincronizad
 ln -s "$(pwd)/agent-skills/readme-completo" ~/.claude/skills/readme-completo
 ```
 
-Así editás el repo y el agente ve el cambio al instante.
+Así editas el repo y el agente ve el cambio al instante.
 
-> ⚠️ Con symlink, actualizar tu máquina y publicar en GitHub pasan a ser cosas separadas. La skill cambia apenas guardás; el commit sigue siendo tu responsabilidad.
+> ⚠️ Con symlink, actualizar tu máquina y publicar en GitHub pasan a ser cosas separadas. La skill cambia apenas guardas; el commit sigue siendo tu responsabilidad.
 
 ## Estructura del repositorio
 
@@ -173,7 +173,7 @@ agent-skills/
 
 ## Anatomía de una skill
 
-Si nunca escribiste una, esto es lo que tenés que entender antes de tocar un solo archivo.
+Si nunca escribiste una, esto es lo que tienes que entender antes de tocar un solo archivo.
 
 ### El frontmatter es un clasificador, no metadata decorativa
 
@@ -195,10 +195,10 @@ Esto es lo que más cuesta al principio. El `SKILL.md` no es un tutorial ni un a
 | Prosa para humanos | Instrucción para el modelo |
 |---|---|
 | "Es importante verificar la información" | "NUNCA inventes comandos, puertos ni variables de entorno" |
-| "Conviene adaptar el resultado" | "Si detectás `SKILL.md`, cargá `references/skill-projects.md`" |
-| "Podés revisar algunas cosas al final" | Una checklist con casillas concretas |
+| "Conviene adaptar el resultado" | "Si detectas `SKILL.md`, carga `references/skill-projects.md`" |
+| "Puedes revisar algunas cosas al final" | Una checklist con casillas concretas |
 
-Imperativo, reglas explícitas, criterios de decisión y tablas de "si pasa X → hacé Y". Ambigüedad = resultado impredecible.
+Imperativo, reglas explícitas, criterios de decisión y tablas de "si pasa X → haz Y". Ambigüedad = resultado impredecible.
 
 ### Progressive disclosure: el contexto se paga
 
@@ -213,15 +213,15 @@ La solución fue partirla:
 
 > 💡 Regla práctica: si una sección de tu skill empieza con "cuando el proyecto sea X...", esa sección es candidata a salir a `references/`.
 
-### Cómo la probás
+### Cómo la pruebas
 
-No hay tests unitarios acá. Se prueba activándola en un repositorio real y verificando el resultado contra los hechos: ¿los comandos existen?, ¿las versiones coinciden?, ¿los paths son reales?
+No hay tests unitarios aquí. Se prueba activándola en un repositorio real y verificando el resultado contra los hechos: ¿los comandos existen?, ¿las versiones coinciden?, ¿los paths son reales?
 
 Por eso `readme-completo` termina con una checklist de validación: es su forma de auto-verificarse antes de entregar.
 
 ## Agregar una skill nueva
 
-1. Creá una carpeta con el nombre de la skill en kebab-case (`mi-skill/`).
+1. Crea una carpeta con el nombre de la skill en kebab-case (`mi-skill/`).
 2. Adentro, un `SKILL.md` con frontmatter válido:
 
 ```yaml
@@ -236,11 +236,11 @@ metadata:
 ```
 
 3. El cuerpo del documento describe el sistema de trabajo de la skill: propósito, reglas, flujo y criterios de validación.
-4. Si la skill crece, movés lo especializado a `mi-skill/references/` y dejás en el `SKILL.md` una tabla que indique cuándo cargar cada archivo.
+4. Si la skill crece, mueves lo especializado a `mi-skill/references/` y dejas en el `SKILL.md` una tabla que indique cuándo cargar cada archivo.
 
 ## Contribuir
 
-Leé la [guía de contribución](./CONTRIBUTING.md) y el [código de conducta](./CODE_OF_CONDUCT.md). Para bugs o ideas, abrí un [issue](https://github.com/Leoglez10/agent-skills/issues/new/choose) con la plantilla.
+Lee la [guía de contribución](./CONTRIBUTING.md) y el [código de conducta](./CODE_OF_CONDUCT.md). Para bugs o ideas, abre un [issue](https://github.com/Leoglez10/agent-skills/issues/new/choose) con la plantilla.
 
 ## Licencia
 
