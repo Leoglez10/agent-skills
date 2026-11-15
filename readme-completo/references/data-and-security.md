@@ -12,6 +12,10 @@ proyecto con la evidencia de la inspección (manifiestos, dependencias, código
 de acceso a datos, `scripts/`, workflows). Luego toma o quita bloques según la
 tabla.
 
+La **Matriz de secciones de `SKILL.md`** decide si una sección va y es la
+fuente de verdad; esta tabla la detalla por bloque de datos y usa las mismas
+reglas. Equivalencia de leyendas: ✅ = ✅, 🔶 = ◐, ❌ = —.
+
 Leyenda: ✅ incluir casi siempre · 🔶 incluir solo si el repo lo prueba · ❌ omitir.
 
 | Bloque | App de escritorio / local-first | App móvil con datos locales | CLI o herramienta con estado local | Web/API con BD propia (servidor) | Web estática / librería / skill sin estado |

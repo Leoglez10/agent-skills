@@ -48,7 +48,7 @@ Debe contener idealmente:
 
 No satures el hero.
 
-Normalmente 4–10 badges son suficientes.
+Usa el set obligatorio de 8–12 badges en dos filas (ver `references/badges-and-credits.md`); no agregues más en el hero.
 
 ## Línea en inglés (cuando el README no está en inglés)
 

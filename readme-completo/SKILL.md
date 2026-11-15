@@ -303,8 +303,8 @@ Leyenda:
 | Flujos complejos a fondo | ✅ | ✅ | ✅ | ◐ | ◐ | — | — | — |
 | Modo prueba | ✅ | ✅ | ✅ | ◐ | ◐ | — | ◐ | — |
 | Dónde están los datos + qué datos guarda | ✅ | ✅ | ✅ | ✅ | ◐ | — | ◐ | — |
-| Respaldo y recuperación | ✅ | ✅ | ✅ | ✅ | ◐ | — | ◐ | — |
-| Nube / varias computadoras | ✅ | ◐ | ✅ | — | — | — | — | — |
+| Respaldo y recuperación | ✅ | ✅ | ◐ | ✅ | ◐ | — | ◐ | — |
+| Nube / varias computadoras | ✅ | — | — | — | ◐ | — | — | — |
 | Mantenimiento | ✅ | ✅ | ✅ | ✅ | ◐ | ◐ | ✅ | ◐ |
 | Actualización | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Troubleshooting | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

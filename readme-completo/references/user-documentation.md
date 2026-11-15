@@ -12,9 +12,13 @@ Nunca dejes una sección vacía ni con texto genérico para "rellenar".
 
 ## Matriz de aplicabilidad (detecta, luego incluye o quita)
 
-Lee la columna "Señal en el repo" antes de escribir. Si la señal no está,
-omite la sección (o marca `pendiente` si es algo que el usuario debería
-confirmar). Las filas **Casi siempre** se incluyen salvo evidencia en contra.
+Si una sección va o no en el README lo decide la **Matriz de secciones de
+`SKILL.md`**: es la fuente de verdad. Esta tabla no la contradice; solo dice qué
+señal buscar en el repo para llenar cada pieza. Las piezas **Casi siempre** se
+incluyen salvo evidencia en contra; las **Condicionales** que sean sub-piezas
+(advertencia de instalador, recorrido de admin, cierre de sesión) se quitan si
+falta su señal. Si la señal es algo que el usuario debería confirmar, marca
+`pendiente`.
 
 | Pieza | Nivel | Señal en el repo que la activa |
 |---|---|---|
@@ -37,8 +41,10 @@ confirmar). Las filas **Casi siempre** se incluyen salvo evidencia en contra.
 Casos típicos:
 
 * **App de escritorio interna** (instalador + admin no técnico): casi todo.
-* **Web app SaaS pública**: 11, 12, 18; sin 9/17/17b/19.
-* **CLI para técnicos**: 11 reducido a comandos; sin 9/10/19.
+* **Web app SaaS pública**: casi todo; 9 se convierte en "cómo entrar o
+  registrarse" y 17 en "qué cambia en cada versión".
+* **CLI para técnicos**: 11 reducido a comandos; 10 solo si hay credenciales;
+  19 solo con evidencia de mantenedores no programadores.
 * **Librería/paquete**: no usar este archivo.
 
 ---
@@ -93,7 +99,12 @@ Avisa del warning del sistema operativo antes de que el usuario se asuste:
 > ⚠️ **Es normal:** el instalador no está firmado con un certificado comercial, así que tu sistema puede mostrar una advertencia.
 > - **Windows (SmartScreen, "Windows protegió su PC"):** clic en **Más información** → **Ejecutar de todas formas**.
 > - **macOS (Gatekeeper):** clic derecho sobre la app → **Abrir** → confirma **Abrir**.
+>
+> Descarga el instalador **solo** desde la página oficial de Releases. Si la release publica un checksum SHA-256, comprúebalo antes de abrirlo.
 ```
+
+Incluye la línea del checksum solo si las releases realmente lo publican; la de
+"solo desde Releases" va siempre.
 
 Incluye solo el sistema operativo que el proyecto realmente soporta. Si hay
 firma o notarización, **omite el aviso** (un warning falso erosiona confianza).
@@ -163,8 +174,11 @@ NO maquilles debilidades de seguridad.
 Esta es una de las pocas secciones donde el encabezado puede llevar marcador
 de urgencia (`(¡CAMBIAR!)`), porque no cambiarlas expone acceso. Si el
 código conserva un acceso de recuperación con la combinación de fábrica aun
-después de cambiar la credencial, documéntalo tal cual, con el archivo donde
-lo verificaste.
+después de cambiar la credencial, NO publiques la combinación ni el archivo en
+el README: en un repo público eso entrega la puerta trasera de cada
+instalación. En el README advierte que existe un acceso de recuperación y que
+el equipo debe protegerse físicamente; los detalles van en el reporte final
+para el maintainer (o al flujo de `SECURITY.md` si existe).
 
 ---
 
@@ -595,8 +609,8 @@ nombre real del repo y la rama real (`main`, `master`). Cuatro tareas:
 git clone https://github.com/<usuario>/<repo>.git
 cd <repo>
 
-git status
-git add .
+git status                      # revisa la lista: nada de base de datos, .env ni respaldos
+git add <archivo1> <archivo2>   # agrega por nombre lo que cambiaste
 git commit -m "feat: descripción corta del cambio"
 git push
 
