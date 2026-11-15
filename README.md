@@ -10,6 +10,8 @@ Skills en formato `SKILL.md` (LLM-first) listas para instalar en Claude Code, Op
 
 > 🇬🇧 **In English:** A collection of LLM-first `SKILL.md` skills for coding agents such as Claude Code, OpenCode and Codex. No build step, no dependencies.
 
+🌐 **Catálogo web:** [leoglez10.github.io/agent-skills](https://leoglez10.github.io/agent-skills/)
+
 ---
 
 ## ¿Qué es este repo?
@@ -143,6 +145,7 @@ Así editas el repo y el agente ve el cambio al instante.
 ```text
 agent-skills/
 ├── .github/                  ← Plantillas de issues y PRs, imagen de vista previa
+├── docs/                     ← Catálogo web publicado con GitHub Pages
 ├── readme-completo/
 │   ├── SKILL.md              ← ⭐ Núcleo: reglas, workflow, validación
 │   └── references/           ← Conocimiento especializado, carga bajo demanda
