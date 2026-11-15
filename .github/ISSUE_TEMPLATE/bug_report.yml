@@ -1,0 +1,38 @@
+name: Bug en una skill
+description: La skill hizo algo incorrecto o no se activó
+labels: [bug]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options:
+        - readme-completo
+        - repo-presentacion
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agente y versión
+      placeholder: "Claude Code 2.x, OpenCode, Codex..."
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Qué le pediste al agente
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Qué pasó
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Qué esperabas
+    validations:
+      required: true

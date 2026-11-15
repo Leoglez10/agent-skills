@@ -1,0 +1,20 @@
+name: Idea o mejora
+description: Proponer una skill nueva o mejorar una existente
+labels: [enhancement]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill (o "nueva")
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qué problema resuelve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta
