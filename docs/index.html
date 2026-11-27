@@ -218,6 +218,17 @@
   }
   .hero-facts li::before { content: "·"; color: var(--accent); margin-right: 8px; font-weight: 700; }
 
+  .hero-credit { margin-top: 18px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em; color: var(--muted); }
+  .hero-credit a { color: var(--accent); text-decoration: none; }
+  .hero-credit a:hover { text-decoration: underline; }
+  .pack-head { margin: 56px 0 22px; }
+  .pack-head h3 { font-size: 1.15rem; }
+  .pack-head p { margin-top: 8px; color: var(--muted); max-width: 680px; }
+  .pack-head a, .pack-note a { color: var(--accent); }
+  .pack-note { margin-top: 16px; color: var(--muted); font-size: 0.85rem; }
+  .skill-card .install-one { margin-top: 18px; }
+  .skill-card .install-one pre { font-size: 0.72rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+
   /* ---------- Sections ---------- */
   section { padding: clamp(56px, 8vw, 96px) 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: 0; }
@@ -520,6 +531,7 @@
         <li>sin dependencias</li>
         <li>progressive disclosure</li>
       </ul>
+      <p class="hero-credit">Hechas por mí (<a href="https://github.com/Leoglez10">@Leoglez10</a>) y mi bestie Claude (él hizo casi todo jaja)</p>
     </div>
   </div>
 
@@ -616,6 +628,326 @@
         </article>
 
       </div>
+
+      <div class="pack-head">
+        <h3>Paquete: apps de escritorio</h3>
+        <p>Siete skills que se usan juntas con <a href="#apps-escritorio">un solo prompt</a>, o una por una: cada tarjeta trae su comando para instalar solo esa.</p>
+      </div>
+
+      <div class="skills-grid">
+
+        <article class="skill-card" aria-labelledby="skill-app-escritorio-blueprint">
+          <div class="skill-top">
+            <span class="skill-index">03</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-app-escritorio-blueprint">app-escritorio-blueprint</h3>
+          <p>
+            La entrada del paquete. Mapea todo lo que tiene Finanzas (ventanas, sidebar, ajustes, comandos) a tu app nueva y arma el plan por fases que usa las demás skills.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>app como Finanzas</li>
+              <li>nueva app de escritorio</li>
+              <li>blueprint de app</li>
+              <li>clonar la experiencia</li>
+              <li>app nativa multiplataforma</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint" aria-label="Copiar el comando para instalar app-escritorio-blueprint">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/app-escritorio-blueprint/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/app-escritorio-blueprint/references">
+              1 referencia
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-diseno-sin-slop">
+          <div class="skill-top">
+            <span class="skill-index">04</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-diseno-sin-slop">diseno-sin-slop</h3>
+          <p>
+            Sistema de diseño para que tu app no se vea hecha por IA: tokens, <code>DESIGN.md</code>, lista de prohibidos y una auditoría con comandos para medirlo.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>diseño muy IA</li>
+              <li>quitar AI slop</li>
+              <li>DESIGN.md</li>
+              <li>design tokens</li>
+              <li>rediseño</li>
+              <li>estilo OpenCode/Hex</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill diseno-sin-slop</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill diseno-sin-slop" aria-label="Copiar el comando para instalar diseno-sin-slop">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/diseno-sin-slop/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/diseno-sin-slop/references">
+              2 referencias
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/diseno-sin-slop/assets">
+              2 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-ux-shell-escritorio">
+          <div class="skill-top">
+            <span class="skill-index">05</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-ux-shell-escritorio">ux-shell-escritorio</h3>
+          <p>
+            Sidebar plegable, Ajustes por pestañas, diálogos nativos, toast con deshacer en vez de “¿estás seguro?”, textos y estados vacíos.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>sidebar</li>
+              <li>barra lateral</li>
+              <li>ajustes</li>
+              <li>settings</li>
+              <li>diálogos</li>
+              <li>toast</li>
+              <li>deshacer</li>
+              <li>primeros pasos</li>
+              <li>UX de app de escritorio</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill ux-shell-escritorio</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill ux-shell-escritorio" aria-label="Copiar el comando para instalar ux-shell-escritorio">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/ux-shell-escritorio/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/ux-shell-escritorio/references">
+              3 referencias
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/ux-shell-escritorio/assets">
+              2 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-registro-comandos">
+          <div class="skill-top">
+            <span class="skill-index">06</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-registro-comandos">registro-comandos</h3>
+          <p>
+            Un solo registro de comandos para el menú nativo, la paleta ⌘K y la tabla de atajos, con ⌘ convertido a Ctrl en Windows y Linux.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>paleta de comandos</li>
+              <li>⌘K</li>
+              <li>command palette</li>
+              <li>atajos de teclado</li>
+              <li>menú nativo</li>
+              <li>shortcuts</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill registro-comandos</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill registro-comandos" aria-label="Copiar el comando para instalar registro-comandos">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/registro-comandos/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/registro-comandos/assets">
+              4 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-tauri-escritorio">
+          <div class="skill-top">
+            <span class="skill-index">07</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-tauri-escritorio">tauri-escritorio</h3>
+          <p>
+            App Tauri 2 completa: ventanas, icono en la barra de menús, captura rápida con atajo global, avisos y actualizaciones firmadas.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>Tauri</li>
+              <li>app de escritorio</li>
+              <li>bandeja</li>
+              <li>tray</li>
+              <li>captura rápida</li>
+              <li>atajo global</li>
+              <li>actualizaciones</li>
+              <li>updater</li>
+              <li>notificaciones</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill tauri-escritorio</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill tauri-escritorio" aria-label="Copiar el comando para instalar tauri-escritorio">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/tauri-escritorio/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/tauri-escritorio/references">
+              1 referencia
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/tauri-escritorio/assets">
+              4 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-mcp-para-app">
+          <div class="skill-top">
+            <span class="skill-index">08</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-mcp-para-app">mcp-para-app</h3>
+          <p>
+            Servidor MCP en Rust que comparte el núcleo de tu app, para que Claude Code, Codex u OpenCode lean y operen tus datos.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>servidor MCP</li>
+              <li>MCP de mi app</li>
+              <li>agentes IA</li>
+              <li>rmcp</li>
+              <li>conectar Claude/Codex/OpenCode a la app</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill mcp-para-app</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill mcp-para-app" aria-label="Copiar el comando para instalar mcp-para-app">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/mcp-para-app/references">
+              1 referencia
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/mcp-para-app/assets">
+              2 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-labelledby="skill-qa-visual-loop">
+          <div class="skill-top">
+            <span class="skill-index">09</span>
+            <div class="skill-chips">
+              <span class="chip chip-accent">v1.0</span>
+              <span class="chip">Apps de escritorio</span>
+            </div>
+          </div>
+          <h3 id="skill-qa-visual-loop">qa-visual-loop</h3>
+          <p>
+            Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro; repite hasta igualar la referencia.
+          </p>
+          <div class="triggers">
+            <p class="triggers-label">Se activa cuando dices</p>
+            <ul class="trigger-list">
+              <li>QA visual</li>
+              <li>capturas claro y oscuro</li>
+              <li>harness de QA</li>
+              <li>probar la app real</li>
+              <li>ciclo hasta paridad</li>
+              <li>comparar con referencia</li>
+            </ul>
+          </div>
+          <div class="code-block install-one">
+            <pre><code><span class="cmd-prompt">$</span> npx skills add Leoglez10/agent-skills --skill qa-visual-loop</code></pre>
+            <button class="copy-btn" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill qa-visual-loop" aria-label="Copiar el comando para instalar qa-visual-loop">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="skill-links">
+            <a href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md">
+              SKILL.md
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/qa-visual-loop/references">
+              1 referencia
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/Leoglez10/agent-skills/tree/main/qa-visual-loop/assets">
+              5 plantillas
+              <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
@@ -679,6 +1011,8 @@ Mi app: [qué hace, para quién y sus pantallas principales]" aria-label="Copiar
             <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md"><code>mcp-para-app</code></a> — Servidor MCP que comparte el núcleo de la app.</li>
             <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md"><code>qa-visual-loop</code></a> — Scripts PASS/FAIL y capturas claro/oscuro hasta la paridad.</li>
           </ul>
+          <p class="pack-note">¿Solo quieres una? Cada tarjeta del <a href="#skills">catálogo</a> trae su comando, o usa
+            <code>npx skills add Leoglez10/agent-skills --skill &lt;nombre&gt;</code>.</p>
         </div>
       </div>
     </div>
