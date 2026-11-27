@@ -43,6 +43,12 @@ Siete skills que capturan el diseño, la UX y la arquitectura de [Finanzas](http
 | [`mcp-para-app`](./mcp-para-app/SKILL.md) | 1.0 | Servidor MCP en Rust que comparte el núcleo de la app, con estado "conectado" en Ajustes | `servidor MCP`, `agentes IA`, `rmcp` |
 | [`qa-visual-loop`](./qa-visual-loop/SKILL.md) | 1.0 | Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro | `QA visual`, `capturas claro y oscuro`, `paridad` |
 
+Cada skill también se instala sola:
+
+```bash
+npx skills add Leoglez10/agent-skills --skill diseno-sin-slop
+```
+
 #### Empezar una app nueva con el paquete
 
 Abre tu agente dentro de la carpeta del proyecto nuevo y pega este prompt. Cambia la última línea por la descripción de tu app. El agente instala las 7 skills, las lee y te acompaña fase por fase hasta que la app tenga lo mismo que Finanzas.
