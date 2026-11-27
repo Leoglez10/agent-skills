@@ -1,0 +1,150 @@
+/* Page CSS for the agent-skills catalog: only what sits inside a visual or a block the kit lacks
+   (code blocks with their copy button, the skill cards' trigger lists, the pack rows, the folder tree),
+   built on the kit's tokens (assets/system.css). */
+
+/* inline code and the logo glyph */
+code, .mono { font-family: var(--font-mono); }
+:not(pre) > code { font-size: .92em; padding: 0 .3em; border-radius: var(--r-sm); background: color-mix(in oklab, var(--ink) 9%, transparent); }
+.logo-glyph { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; }
+.nav__logo { gap: var(--s-2); }
+.btn .gh { width: 16px; height: 16px; fill: currentColor; flex: none; }
+.badge--accent { background: var(--accent); color: var(--p-accent-ink); border-color: transparent; }
+
+/* code block: the command as written, one copy button at its right */
+.code { position: relative; display: flex; align-items: flex-start; gap: var(--s-3); padding: var(--s-3) var(--s-3) var(--s-3) var(--s-4);
+  background: #0a140b; border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent); border-radius: var(--r-md); color: #e8eee8; }
+.code pre { flex: 1 1 auto; min-width: 0; margin: 0; padding-block: 10px; font: 400 14px/1.6 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.code .sig { color: var(--accent); user-select: none; }
+.code .cmt { color: #8f9a8f; }
+.copy { flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: var(--r-sm);
+  background: transparent; color: #e8eee8; border: 1px solid color-mix(in oklab, #e8eee8 22%, transparent); cursor: pointer;
+  transition: background-color var(--m-in, 150ms) var(--ease), border-color var(--m-in, 150ms) var(--ease); }
+.copy svg { grid-area: 1 / 1; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  transition: opacity 150ms var(--ease), transform 150ms var(--ease); }
+.copy .ico-done { opacity: 0; transform: scale(.7); stroke: var(--accent); stroke-width: 2; }
+.copy[data-copied="true"] .ico-copy { opacity: 0; transform: scale(.7); }
+.copy[data-copied="true"] .ico-done { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) { .copy:hover { background: color-mix(in oklab, #e8eee8 10%, transparent); border-color: color-mix(in oklab, #e8eee8 40%, transparent); } }
+.copy:active { background: color-mix(in oklab, #e8eee8 16%, transparent); }
+.code--prompt pre { max-height: 360px; overflow: auto; font-size: 13px; line-height: 1.55; }
+/* the prompt's two bracketed fields are the owner's text, meant to be filled in by the reader (waived in .taste-skill/waivers.json):
+   system.js still marks and counts them; only the red dashed outline is left off inside the prompt */
+.code--prompt [data-placeholder] { outline: none; }
+
+/* the hero: the terminal on the lit ground, the facts on the float card */
+.hero__term { background: var(--ground-bg); }
+.hero__term .stage { position: absolute; inset: 0; }
+.hero__credit { margin-top: var(--s-5); font-size: var(--t-small); color: var(--muted); max-width: 42ch; }
+.hero__facts { list-style: none; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.hero__facts li { font: 500 13px/1 var(--font-mono); padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--r-sm); }
+/* a phone keeps the words on the first screen: the terminal rests and the float card's facts are the picture */
+@media (max-width: 639px) {
+  .hero--split .hero__term { min-height: 0; flex: 0 0 auto; display: block; padding: 0; margin-top: var(--s-4); background: none; }
+  .hero__term .stage { display: none; }
+  .hero__term .ly-float { position: static; width: 100%; }
+  .hero__credit { margin-top: var(--s-4); }
+}
+
+/* skill cards and rows */
+.sk-n { font-size: 13px; color: var(--muted); }
+.sk-top { display: flex; align-items: center; gap: var(--s-2); margin-bottom: var(--s-5); }
+.sk-top .sk-n { margin-right: auto; }
+.sk-card h3 { font-size: var(--t-card); font-weight: 500; }
+.sk-trig-label { margin-top: var(--s-5); }
+.sk-trig { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.sk-trig li { font: 400 13px/1 var(--font-mono); padding: 6px 8px; border-radius: var(--r-sm); background: color-mix(in oklab, var(--ink) 8%, transparent); color: var(--ink); }
+.sk-links { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+.sk-links .link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+.ext { display: none; width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.pk-rows { list-style: none; margin: var(--s-6) 0 0; padding: 0; }
+.pk-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3) var(--s-5); padding-block: var(--s-4); border-bottom: 1px solid var(--line); }
+.pk-row:first-child { border-top: 1px solid var(--line); }
+.pk-id { grid-column: 1 / span 3; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-1); }
+.pk-id h3 { font-size: 18px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+.pk-id .sk-links { margin-top: 0; gap: 0 var(--s-4); }
+.pk-badges { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.pk-body { grid-column: 4 / span 5; }
+.pk-body .code { margin-top: var(--s-3); padding-block: 0; }
+.pk-body .code pre { font-size: 13px; padding-block: 12px; }
+.pk-trig { grid-column: 9 / span 4; }
+.pk-trig .sk-trig-label { margin-top: 0; }
+@media (max-width: 1023px) {
+  .pk-id { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: var(--s-3); }
+  .pk-body, .pk-trig { grid-column: 1 / -1; }
+}
+
+/* the pack section: the app's real screen, the prompt and the list */
+.shot { margin: var(--s-7) 0 0; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.app-card { display: flex; flex-direction: column; }
+.app-card h3 { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.app-card .code { margin-top: var(--s-5); }
+.pack-list { margin: var(--s-4) 0 0; padding: 0; list-style: none; display: grid; gap: var(--s-2); }
+.pack-list li { line-height: 1.5; }
+.pack-note { margin-top: var(--s-5); color: var(--ink); }
+
+/* installation: each step's visual is a terminal on the lit ground */
+.pc-intro { margin-top: var(--s-4); max-width: 46ch; }
+#instalacion .mo-pc__steps { margin-top: var(--s-7); }
+.pc-term { display: flex; flex-direction: column; justify-content: center; gap: var(--s-4); padding: clamp(16px, 4vw, 40px); background: var(--ground-bg); }
+.agent-dirs { width: 100%; border-collapse: collapse; background: #0a140b; color: #e8eee8; border: 1px solid color-mix(in oklab, #e8eee8 14%, transparent); border-radius: var(--r-md); font-size: 14px; }
+.agent-dirs th, .agent-dirs td { text-align: left; padding: 10px var(--s-4); border-bottom: 1px solid color-mix(in oklab, #e8eee8 12%, transparent); }
+.agent-dirs th { font-weight: 500; color: #b9c3b9; }
+.agent-dirs tr:last-child td { border-bottom: 0; }
+.agent-dirs code { background: none; padding: 0; }
+.tree { list-style: none; margin: 0; padding: var(--s-5); background: #0a140b; color: #e8eee8; border-radius: var(--r-md); font: 400 14px/1.9 var(--font-mono); }
+.tree__dir { color: #b9c3b9; }
+.tree__in { padding-left: 2ch; }
+.tree__in2 { padding-left: 4ch; color: #cfd8cf; }
+.tree__file--on { padding-left: 2ch; color: var(--accent); }
+
+/* eyebrow labels above a heading stay label-sized inside .section-head */
+.section-head > .eyebrow { font-size: var(--t-label); font-weight: 500; line-height: 1.3; margin: 0 0 var(--s-3); max-width: none; }
+
+/* principles: the statement heading, set large */
+.pr-head { max-width: none; }
+.pr-head > p:not(.eyebrow) { max-width: 62ch; }
+.pr-title { font-size: clamp(44px, 6.2vw, 104px); max-width: none; line-height: 1; letter-spacing: var(--display-tracking-xl); }
+.pr-grid { margin-top: var(--s-8); }
+.pr h3 { margin-top: var(--s-3); font-size: var(--t-card); font-weight: 500; }
+.pr p { margin-top: var(--s-2); }
+@media (max-width: 1023px) { .pr { grid-column: span 6; } }
+@media (max-width: 639px) { .pr { grid-column: 1 / -1; } }
+
+@media (max-width: 639px) {
+  .code--prompt pre { max-height: 220px; }
+  .pc-term { padding: var(--s-3); gap: var(--s-3); }
+  .code pre { font-size: 13px; }
+  .shot { aspect-ratio: 16 / 10; }
+}
+
+/* 1024 to 1279: the owner's long h1 takes half the wrap, a size under the desktop one, so the hero stays one screen */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero--split .hero__text { grid-column: 1 / span 6; }
+  .hero--split .hero__media { grid-column: 7 / span 6; }
+  .hero--split h1 { font-size: 48px; }
+  .hero .hero__lead { font-size: 17px; }
+}
+/* the tablet (640 to 1023): the pack rows put the triggers beside the text, the screen and the prompt shorter */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .pk-body { grid-column: 1 / span 7; }
+  .pk-trig { grid-column: 8 / span 5; }
+  .shot { aspect-ratio: 16 / 10; flex: none; }
+  .code--prompt pre { max-height: 240px; }
+}
+.nw { white-space: nowrap; }
+@media (max-width: 639px) {
+  #instalacion .mo-pc__steps { margin-top: var(--s-5); }
+  .pc-intro { margin-top: var(--s-3); }
+  .tree { padding: var(--s-4); line-height: 1.6; font-size: 13px; }
+  .agent-dirs th, .agent-dirs td { padding: 8px var(--s-3); font-size: 13px; }
+  .code--prompt pre { max-height: 160px; }
+  .app-card .code { margin-top: var(--s-4); }
+}
+.h3-row { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.pc-badge { margin-top: var(--s-2); width: max-content; justify-self: start; align-self: start; }
+.hero__credit { color: var(--ink); }
+.code .cmt { color: #aab5aa; }
+.hero__term .loop-pause:focus-visible { outline-color: var(--p-inv-action); }
+@media (min-width: 1024px) { .code--prompt pre { max-height: none; overflow: visible; } }

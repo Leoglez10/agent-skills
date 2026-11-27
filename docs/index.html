@@ -1,196 +1,218 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-type="software" data-radius="sharp" data-ground="sky" data-buttons="tonal" data-motion>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>agent-skills · Pega un prompt, tu agente construye la app</title>
-<meta name="description" content="Skills en formato SKILL.md para Claude Code, OpenCode y Codex. Un paquete de 7 skills construye apps de escritorio con el diseño y la UX de Finanzas.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>agent-skills: skills SKILL.md para agentes de código</title>
+<meta name="description" content="Instrucciones especializadas que le enseñan a un agente de código a ejecutar una tarea con criterio profesional. Sin build, sin dependencias.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="agent-skills · Pega un prompt, tu agente construye la app">
-<meta property="og:description" content="Un paquete de skills que le enseña a tu agente a construir una app de escritorio como Finanzas, fase por fase.">
+<meta property="og:title" content="agent-skills — Skills para agentes de código">
+<meta property="og:description" content="Instrucciones especializadas que le enseñan a un agente de código a ejecutar una tarea con criterio profesional. Sin build, sin dependencias.">
 <meta property="og:image" content="https://raw.githubusercontent.com/Leoglez10/agent-skills/main/.github/assets/social-preview.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D6B87'/%3E%3Cpath d='M9 11h9M9 16h14M9 21h6' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/funnel-sans.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0f1f10">
+<link rel="canonical" href="https://leoglez10.github.io/agent-skills/">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wdth,wght@85..100,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
 <style>
-  /* Bundled faces (SIL OFL 1.1, licenses in fonts/), the same ones Finanzas uses. */
-  @font-face { font-family: "Funnel Sans"; font-weight: 300 800; font-display: swap; src: url(fonts/funnel-sans.woff2) format("woff2"); }
-  @font-face { font-family: "Funnel Display"; font-weight: 400 700; font-display: swap; src: url(fonts/funnel-display.woff2) format("woff2"); }
-  @font-face { font-family: "DM Mono"; font-weight: 100 400; font-display: swap; src: url(fonts/dm-mono-400.woff2) format("woff2"); }
-  @font-face { font-family: "DM Mono"; font-weight: 500 900; font-display: swap; src: url(fonts/dm-mono-500.woff2) format("woff2"); }
-
-  /* Tokens from diseno-sin-slop/assets/tokens.css, palette "petroleo". */
-  :root {
-    color-scheme: light dark;
-    --canvas: light-dark(#F2F5F8, #0D141B); --surface: light-dark(#FFFFFF, #141E28); --surface-2: light-dark(#F7F9FB, #1A2632);
-    --border: light-dark(#E2E9EF, #243241);
-    --ink: light-dark(#13212C, #E9F0F5); --muted: light-dark(#627585, #91A4B4);
-    --brand: light-dark(#0D6B87, #5CCBE6); --brand-ink: light-dark(#FFFFFF, #06212B); --brand-soft: light-dark(#E1F2F7, #12303D);
-    --success: light-dark(#0B8F63, #4CDB9C);
-    --font: "Funnel Sans", system-ui, sans-serif;
-    --font-display: "Funnel Display", var(--font);
-    --font-mono: "DM Mono", ui-monospace, monospace;
-    --r-control: 6px; --r-panel: 10px;
-    --text-sm: 12px; --text-md: 14px; --text-lg: 18px; --text-xl: 24px;
-    --shadow-float: 0 8px 24px rgb(0 0 0 / .14), 0 1px 3px rgb(0 0 0 / .08);
-    accent-color: var(--brand);
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { margin: 0; font: var(--text-md)/1.55 var(--font); color: var(--ink); background: var(--canvas); -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, p { margin: 0; }
-  h1, h2 { font-family: var(--font-display); letter-spacing: -.02em; text-wrap: balance; }
-  a { color: var(--brand); text-underline-offset: 3px; }
-  code, kbd, pre { font-family: var(--font-mono); }
-  :not(pre) > code { font-size: .92em; padding: 1px 5px; border-radius: var(--r-control); background: var(--surface-2); border: 1px solid var(--border); }
-  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
-  .wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
-  .muted { color: var(--muted); }
-  .skip { position: absolute; left: -999px; } .skip:focus { left: 16px; top: 12px; z-index: 10; background: var(--surface); padding: 8px 12px; border-radius: var(--r-control); }
-
-  /* Header */
-  .top { position: sticky; top: 0; z-index: 5; background: var(--canvas); border-bottom: 1px solid var(--border); }
-  .top .wrap { display: flex; align-items: center; gap: 24px; height: 60px; }
-  .wordmark { font: 700 var(--text-lg) var(--font-display); color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
-  .top nav { margin-left: auto; display: flex; gap: 20px; align-items: center; }
-  .top nav a { color: var(--muted); text-decoration: none; font-weight: 550; }
-  .top nav a:hover { color: var(--ink); }
-  @media (width < 760px) { .top nav a:not(.gh) { display: none; } }
-
-  /* Buttons */
-  .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: var(--r-control); border: 1px solid var(--border); background: var(--surface); color: var(--ink); font: 600 var(--text-md) var(--font); cursor: pointer; text-decoration: none; }
-  .btn:hover { border-color: color-mix(in srgb, var(--brand) 40%, var(--border)); }
-  .btn.primary { background: var(--brand); color: var(--brand-ink); border-color: transparent; }
-  .btn.primary:hover { filter: brightness(1.08); }
-  .btn svg, .copy svg { width: 16px; height: 16px; flex: none; }
-
-  /* Hero */
-  .hero { padding: 72px 0 0; }
-  .hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.04; font-weight: 700; max-width: 20ch; }
-  .hero .lede { margin-top: 20px; font-size: var(--text-lg); color: var(--muted); max-width: 58ch; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
-  .credit { margin-top: 20px; font: var(--text-sm) var(--font-mono); color: var(--muted); }
-  .shot { margin: 0 0 16px; border: 1px solid var(--border); border-radius: var(--r-panel); overflow: hidden; background: var(--surface); }
-  .shot img { display: block; width: 100%; height: auto; }
-  .shot figcaption { padding: 10px 16px; border-top: 1px solid var(--border); font-size: var(--text-sm); color: var(--muted); }
-
-  /* Sections */
-  section { padding: 88px 0 0; }
-  .head { max-width: 640px; margin-bottom: 28px; }
-  .head h2 { font-size: var(--text-xl); font-weight: 700; }
-  .head p { margin-top: 8px; color: var(--muted); }
-
-  /* Steps: numbers and lines, no icon cards */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); border-radius: var(--r-panel); background: var(--border); gap: 1px; overflow: hidden; }
-  .steps li { background: var(--surface); padding: 20px; }
-  .steps b { display: block; font: 500 var(--text-xl) var(--font-mono); color: var(--brand); }
-  .steps h3 { margin-top: 8px; font-size: var(--text-md); font-weight: 650; }
-  .steps p { margin-top: 4px; color: var(--muted); }
-  @media (width < 760px) { .steps { grid-template-columns: 1fr; } }
-
-  /* Code blocks with a copy button */
-  .code { position: relative; border: 1px solid var(--border); border-radius: var(--r-panel); background: var(--surface); }
-  .code pre { margin: 0; padding: 16px 56px 16px 16px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .code > .copy-wrap { position: absolute; top: 8px; right: 8px; }
-  .copy-wrap { position: relative; display: inline-flex; }
-  .copy { display: grid; place-items: center; min-inline-size: 32px; min-block-size: 32px; border-radius: var(--r-control); border: 1px solid var(--border); background: var(--surface-2); color: var(--muted); cursor: pointer; }
-  .copy:hover { color: var(--ink); }
-  .copy .ok { display: none; }
-  .copy[data-copied] { color: var(--success); } .copy[data-copied] .ok { display: block; } .copy[data-copied] .icon { display: none; }
-  .tip { position: absolute; right: 0; bottom: calc(100% + 6px); padding: 4px 8px; border-radius: var(--r-control); background: var(--ink); color: var(--surface); font-size: var(--text-sm); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; box-shadow: var(--shadow-float); }
-  .tip:not(:empty) { opacity: 1; }
-
-  /* Skills table */
-  .table { border: 1px solid var(--border); border-radius: var(--r-panel); overflow: hidden; background: var(--surface); }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  tr:last-child td { border-bottom: 0; }
-  th { font-size: var(--text-sm); font-weight: 650; color: var(--muted); background: var(--surface-2); }
-  td.name a { font: 500 var(--text-md) var(--font-mono); color: var(--ink); text-decoration: none; white-space: nowrap; }
-  td.name a:hover { color: var(--brand); text-decoration: underline; }
-  td.name small { display: block; margin-top: 2px; color: var(--muted); font-size: var(--text-sm); }
-  td.what { color: var(--muted); }
-  td.install { width: 1%; white-space: nowrap; }
-  td.install code { font-size: var(--text-sm); color: var(--muted); background: none; border: 0; padding: 0; margin-right: 8px; }
-  td.install > div { display: flex; align-items: center; gap: 8px; }
-  td.install .copy-wrap { margin-left: auto; }
-  @media (width < 860px) {
-    thead { display: none; }
-    tr { display: grid; padding: 12px 16px; border-bottom: 1px solid var(--border); gap: 4px; }
-    tr:last-child { border-bottom: 0; }
-    td { padding: 0; border: 0; } td.install { width: auto; }
-    td.install code { white-space: normal; overflow-wrap: anywhere; }
-  }
-
-  /* Install */
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .two h3 { font-size: var(--text-md); font-weight: 650; margin-bottom: 8px; }
-  .two p { color: var(--muted); margin-bottom: 12px; }
-  @media (width < 860px) { .two { grid-template-columns: 1fr; } }
-  .dirs { margin-top: 12px; }
-
-  /* FAQ */
-  .faq { border: 1px solid var(--border); border-radius: var(--r-panel); background: var(--surface); }
-  .faq details { border-bottom: 1px solid var(--border); }
-  .faq details:last-child { border-bottom: 0; }
-  .faq summary { padding: 14px 16px; font-weight: 600; cursor: pointer; }
-  .faq details p { padding: 0 16px 16px; color: var(--muted); max-width: 72ch; }
-
-  footer { margin-top: 96px; border-top: 1px solid var(--border); }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 24px 0 40px; color: var(--muted); font-size: var(--text-sm); }
-  footer nav { margin-left: auto; display: flex; gap: 16px; }
-  footer a { color: var(--muted); }
+:root {
+  --p-bg: #0f1f10; --p-surface: #162a17; --p-ink: #ffffff; --p-muted: #9aa39a;
+  --p-accent: #c6f19d; --p-accent-ink: #0f1f10; --p-action: #c6f19d; --p-action-ink: #0f1f10;
+  --p-inv-bg: #ffffff; --p-inv-surface: #ecedec; --p-inv-ink: #0f1f10; --p-inv-muted: #606c60;
+  --p-inv-accent: #0f1f10; --p-inv-accent-ink: #ffffff; --p-inv-action: #0f1f10; --p-inv-action-ink: #ffffff;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-text: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
+  --ly-scale: 0.98;
+}
 </style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<link rel="stylesheet" href="assets/ui/terminal-run/fragment.css">
+<link rel="stylesheet" href="page.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/pinned-chapters/moment.js">
+<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
 </head>
 <body>
-<a class="skip" href="#contenido">Saltar al contenido</a>
-<header class="top">
-  <div class="wrap">
-    <a class="wordmark" href="#contenido">agent-skills</a>
-    <nav aria-label="Navegación principal">
-      <a href="#como-funciona">Cómo funciona</a>
-      <a href="#paquete">Paquete</a>
-      <a href="#otras">Otras skills</a>
-      <a href="#instalacion">Instalación</a>
-      <a class="btn gh" href="https://github.com/Leoglez10/agent-skills">GitHub</a>
+<!-- type: software (a catalog of SKILL.md skills for coding agents)
+     deal: hero split (centred dealt first, re-dealt: the owner's 65-character h1 cannot fit its 36), palette forest-pale-lime,
+     type plex, radius sharp, nav nav-centre (nav-cards dealt, re-dealt: no photographs), close close-type, footer footer-columns,
+     rhythm space, buttons tonal, mark wordmark (the client's own glyph kept), ground sky
+     moments: pinned-chapters in #instalacion (the three ways to install, one at a time beside one terminal),
+              liquid-type on the h2 of #principios (the one statement of the page) -->
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Saltar al contenido</a>
+    <a class="nav__logo" href="#top"><svg class="logo-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 11h9M9 16h14M9 21h6"/></svg>agent-skills</a>
+    <nav class="nav__links" aria-label="Navegación principal">
+      <div class="nav__item"><a class="nav__link" href="#skills">Skills</a></div>
+      <div class="nav__item"><a class="nav__link" href="#apps-escritorio">Apps de escritorio</a></div>
+      <div class="nav__item"><a class="nav__link" href="#instalacion">Instalación</a></div>
+      <div class="nav__item"><a class="nav__link" href="#principios">Principios</a></div>
     </nav>
+    <div class="nav__actions">
+      <a class="nav__link" href="https://github.com/Leoglez10/agent-skills">GitHub ↗</a>
+      <a class="btn btn--primary" href="#skills">Ver las skills</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
 
-<main id="contenido">
-  <div class="hero">
-    <div class="wrap">
-      <h1>Pega un prompt. Tu agente construye una app como Finanzas.</h1>
-      <p class="lede">Siete skills que le enseñan a Claude Code, OpenCode o Codex el diseño, la UX y la arquitectura de Finanzas. Tu agente te entrevista, arma el plan y lo avanza fase por fase hasta que tu app quede al mismo nivel.</p>
-      <div class="actions">
-        <span class="copy-wrap">
-          <button class="btn primary" type="button" command="--copy" commandfor="prompt">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
-            Copiar el prompt
-          </button>
-          <span class="tip" role="status"></span>
-        </span>
-        <a class="btn" href="#como-funciona">Ver cómo funciona</a>
+<main id="top">
+  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>Colección de skills · LLM-first</p>
+        <h1 id="hero-h">Instrucciones que le enseñan a tu agente a hacer el trabajo bien.</h1>
+        <p class="hero__lead">Skills en formato <strong>SKILL.md</strong> listas para Claude Code, OpenCode, Codex y cualquier agente que soporte skills por carpeta. El agente no adivina cómo documentar un proyecto: lee la skill y sigue su sistema.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="#skills">Ver las skills<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="https://github.com/Leoglez10/agent-skills"><svg class="gh" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>Ver el repositorio</a></div>
+        <p class="hero__credit">Hechas por mí (<a class="link" href="https://github.com/Leoglez10">@Leoglez10</a>) y mi bestie Claude (él hizo casi todo jaja)</p>
       </div>
-      <p class="credit">Hechas por mí (<a href="https://github.com/Leoglez10">@Leoglez10</a>) y mi bestie Claude (él hizo casi todo jaja)</p>
-    </div>
-  </div>
+      <div class="hero__media hero__term span-6 start-7" role="img" aria-label="Una terminal instala las 9 skills con npx skills add Leoglez10/agent-skills">
+        <div class="stage" aria-hidden="true"><div class="at-rise fit" style="--fit-max:520px;--ax:max(24px, 50% - 260px);--ay:64px;--ay-sm:24px" data-ui-loop>
+          <div class="ui ui-panel ui-term" data-ui="terminal-run">
+            <div class="ui-term__head">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-term__title">mi-proyecto</span>
+              <span class="ui-meta">zsh</span>
+              <span class="ui-spacer"></span>
+            </div>
+            <div class="ui-term__screen" data-term-screen>
+              <div class="ui-term__track" data-term-track>
+                <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/<span class="ui-term__up">dev/</span>mi-proyecto</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>npx skills add Leoglez10/agent-skills</span></div>
+                <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>9 of 9 skills</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">readme-completo/SKILL.md</span><span class="ui-term__n">8 referencias</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">repo-presentacion/SKILL.md</span><span class="ui-term__n">3 referencias</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">app-escritorio-blueprint/SKILL.md</span><span class="ui-term__n">1 referencia</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">diseno-sin-slop/SKILL.md</span><span class="ui-term__n">2 referencias</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">ux-shell-escritorio/SKILL.md</span><span class="ui-term__n">3 referencias</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">registro-comandos/SKILL.md</span><span class="ui-term__n">4 plantillas</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">tauri-escritorio/SKILL.md</span><span class="ui-term__n">1 referencia</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">mcp-para-app/SKILL.md</span><span class="ui-term__n">1 referencia</span></div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">qa-visual-loop/SKILL.md</span><span class="ui-term__n">1 referencia</span></div>
+                <div class="ui-term__ln ui-term__gap" data-term-out aria-hidden="true"></div>
+                <div class="ui-term__ln ui-term__sum" data-term-out><span class="ui-term__key">Skills</span><span class="ui-term__val">9 instaladas</span><span class="ui-term__dim">(9)</span></div>
+                <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Listo</b><span class="ui-term__dim">sin build, sin dependencias</span></div>
+                <div class="ui-term__ln ui-term__cmd" data-term-next><span class="ui-term__cwd">~/<span class="ui-term__up">dev/</span>mi-proyecto</span><span class="ui-term__sig">$</span><span class="ui-term__typed"></span><i class="ui-term__caret" aria-hidden="true"></i></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <ul class="ly-float hero__facts" aria-label="Datos de la colección">
+          <li>9 skills</li><li>Apache-2.0</li><li>sin build</li><li>sin dependencias</li><li>progressive disclosure</li>
+        </ul>
+      </div>
+    </div></div>
+  </section>
 
-  <section id="como-funciona" aria-labelledby="como-title">
+  <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      <div class="head">
-        <h2 id="como-title">Cómo funciona</h2>
-        <p>Abre tu agente en la carpeta vacía del proyecto nuevo y sigue tres pasos.</p>
+      <div class="section-head">
+        <p class="t-label muted eyebrow">Catálogo</p>
+        <h2 id="skills-title">Skills disponibles</h2>
+        <p>Cada skill vive en su propia carpeta y es autónoma. La <code>description</code> del frontmatter lista los triggers literales: son las palabras que el agente compara con tu petición para decidir si la activa.</p>
       </div>
-      <ol class="steps">
-        <li><b>1</b><h3>Pega el prompt</h3><p>El agente instala las 7 skills y lee el inventario de todo lo que tiene Finanzas.</p></li>
-        <li><b>2</b><h3>Contesta la entrevista</h3><p>Una pregunta a la vez: qué hace tu app, sus pantallas y su acción principal. Con eso arma el mapa de paridad y el plan.</p></li>
-        <li><b>3</b><h3>Avanza fase por fase</h3><p>Un commit por tarea, cada uno verificado con tests, QA y capturas en claro y oscuro, hasta completar la paridad.</p></li>
-      </ol>
-      <div class="code" style="margin-top: 16px">
-        <pre><code id="prompt">Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
+      <div class="grid sk-grid">
+          <article class="card sk-card span-6" aria-labelledby="skill-readme-completo">
+            <div class="sk-top"><span class="sk-n mono">01</span><span class="badge badge--accent">v2.4</span><span class="badge">Apache-2.0</span></div>
+            <h3 id="skill-readme-completo" class="mono">readme-completo</h3>
+            <p>Inspecciona un repositorio real y crea o actualiza un <code>README.md</code> profesional, verificable y comprensible para usuarios no técnicos y para desarrolladores. Nunca inventa comandos, puertos, variables de entorno ni licencias.</p>
+            <p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>readme</li><li>crear readme</li><li>mejorar readme</li><li>documentar proyecto</li><li>documentación principal</li><li>actualizar readme</li><li>hacer readme completo</li></ul>
+            <ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/readme-completo/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/readme-completo/references">8 referencias</a></li></ul>
+          </article>
+          <article class="card sk-card span-6" aria-labelledby="skill-repo-presentacion">
+            <div class="sk-top"><span class="sk-n mono">02</span><span class="badge badge--accent">v1.0</span><span class="badge">Apache-2.0</span></div>
+            <h3 id="skill-repo-presentacion" class="mono">repo-presentacion</h3>
+            <p>Audita cómo se ve un repositorio en GitHub más allá del README: About, topics, social preview, releases y archivos de comunidad. Entrega un reporte con comandos <code>gh</code> listos, sin aplicarlos sin tu aprobación.</p>
+            <p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>presentación del repo</li><li>mejorar repo</li><li>repo completo</li><li>About</li><li>topics</li><li>social preview</li><li>releases</li><li>community standards</li></ul>
+            <ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/repo-presentacion/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/repo-presentacion/references">3 referencias</a></li></ul>
+          </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="paquete" style="--h: 2" aria-labelledby="pack-title">
+    <div class="wrap">
+        <div class="section-head pk-head">
+          <h2 id="pack-title">Paquete: apps de escritorio</h2>
+          <p>Siete skills que se usan juntas con <a class="link" href="#apps-escritorio">un solo prompt</a>, o una por una: cada tarjeta trae su comando para instalar solo esa.</p>
+        </div>
+        <ol class="pk-rows">
+          <li class="pk-row" aria-labelledby="skill-app-escritorio-blueprint">
+            <div class="pk-id"><span class="sk-n mono">03</span><h3 id="skill-app-escritorio-blueprint" class="mono">app-escritorio-blueprint</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/app-escritorio-blueprint/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/app-escritorio-blueprint/references">1 referencia</a></li></ul></div>
+            <div class="pk-body"><p>La entrada del paquete. Mapea todo lo que tiene Finanzas (ventanas, sidebar, ajustes, comandos) a tu app nueva y arma el plan por fases que usa las demás skills.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">app-escritorio-blueprint</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint" aria-label="Copiar el comando para instalar app-escritorio-blueprint"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>app como Finanzas</li><li>nueva app de escritorio</li><li>blueprint de app</li><li>clonar la experiencia</li><li>app nativa multiplataforma</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-diseno-sin-slop">
+            <div class="pk-id"><span class="sk-n mono">04</span><h3 id="skill-diseno-sin-slop" class="mono">diseno-sin-slop</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/diseno-sin-slop/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/diseno-sin-slop/references">2 referencias</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/diseno-sin-slop/assets">2 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>Sistema de diseño para que tu app no se vea hecha por IA: tokens, <code>DESIGN.md</code>, lista de prohibidos y una auditoría con comandos para medirlo.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">diseno-sin-slop</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill diseno-sin-slop" aria-label="Copiar el comando para instalar diseno-sin-slop"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>diseño muy IA</li><li>quitar AI slop</li><li>DESIGN.md</li><li>design tokens</li><li>rediseño</li><li>estilo OpenCode/Hex</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-ux-shell-escritorio">
+            <div class="pk-id"><span class="sk-n mono">05</span><h3 id="skill-ux-shell-escritorio" class="mono">ux-shell-escritorio</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/ux-shell-escritorio/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/ux-shell-escritorio/references">3 referencias</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/ux-shell-escritorio/assets">2 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>Sidebar plegable, Ajustes por pestañas, diálogos nativos, toast con deshacer en vez de “¿estás seguro?”, textos y estados vacíos.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">ux-shell-escritorio</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill ux-shell-escritorio" aria-label="Copiar el comando para instalar ux-shell-escritorio"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>sidebar</li><li>barra lateral</li><li>ajustes</li><li>settings</li><li>diálogos</li><li>toast</li><li>deshacer</li><li>primeros pasos</li><li>UX de app de escritorio</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-registro-comandos">
+            <div class="pk-id"><span class="sk-n mono">06</span><h3 id="skill-registro-comandos" class="mono">registro-comandos</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/registro-comandos/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/registro-comandos/assets">4 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>Un solo registro de comandos para el menú nativo, la paleta ⌘K y la tabla de atajos, con ⌘ convertido a Ctrl en Windows y Linux.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">registro-comandos</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill registro-comandos" aria-label="Copiar el comando para instalar registro-comandos"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>paleta de comandos</li><li>⌘K</li><li>command palette</li><li>atajos de teclado</li><li>menú nativo</li><li>shortcuts</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-tauri-escritorio">
+            <div class="pk-id"><span class="sk-n mono">07</span><h3 id="skill-tauri-escritorio" class="mono">tauri-escritorio</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/tauri-escritorio/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/tauri-escritorio/references">1 referencia</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/tauri-escritorio/assets">4 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>App Tauri 2 completa: ventanas, icono en la barra de menús, captura rápida con atajo global, avisos y actualizaciones firmadas.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">tauri-escritorio</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill tauri-escritorio" aria-label="Copiar el comando para instalar tauri-escritorio"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>Tauri</li><li>app de escritorio</li><li>bandeja</li><li>tray</li><li>captura rápida</li><li>atajo global</li><li>actualizaciones</li><li>updater</li><li>notificaciones</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-mcp-para-app">
+            <div class="pk-id"><span class="sk-n mono">08</span><h3 id="skill-mcp-para-app" class="mono">mcp-para-app</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/mcp-para-app/references">1 referencia</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/mcp-para-app/assets">2 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>Servidor MCP en Rust que comparte el núcleo de tu app, para que Claude Code, Codex u OpenCode lean y operen tus datos.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">mcp-para-app</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill mcp-para-app" aria-label="Copiar el comando para instalar mcp-para-app"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>servidor MCP</li><li>MCP de mi app</li><li>agentes IA</li><li>rmcp</li><li>conectar Claude/Codex/OpenCode a la app</li></ul></div>
+          </li>
+          <li class="pk-row" aria-labelledby="skill-qa-visual-loop">
+            <div class="pk-id"><span class="sk-n mono">09</span><h3 id="skill-qa-visual-loop" class="mono">qa-visual-loop</h3><span class="pk-badges"><span class="badge badge--accent">v1.0</span><span class="badge">Apps de escritorio</span></span><ul class="sk-links"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md">SKILL.md</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/qa-visual-loop/references">1 referencia</a></li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/tree/main/qa-visual-loop/assets">5 plantillas</a></li></ul></div>
+            <div class="pk-body"><p>Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro; repite hasta igualar la referencia.</p><div class="code code--one"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills --skill <span class="nw">qa-visual-loop</span></code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --skill qa-visual-loop" aria-label="Copiar el comando para instalar qa-visual-loop"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div></div>
+            <div class="pk-trig"><p class="t-label muted sk-trig-label">Se activa cuando dices</p><ul class="sk-trig"><li>QA visual</li><li>capturas claro y oscuro</li><li>harness de QA</li><li>probar la app real</li><li>ciclo hasta paridad</li><li>comparar con referencia</li></ul></div>
+          </li>
+        </ol>
+    </div>
+  </section>
+
+  <section class="section g2" id="apps-escritorio" aria-labelledby="apps-title">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <p class="t-label muted eyebrow">Paquete de 7 skills</p>
+          <h2 id="apps-title">Crea una app de escritorio como Finanzas</h2>
+          <p>Siete skills que capturan el diseño, la UX y la arquitectura de Finanzas. Pega el prompt en tu agente, dentro de la carpeta del proyecto nuevo: instala el paquete, lee las skills y te acompaña fase por fase hasta que tu app tenga lo mismo que Finanzas.</p>
+        </div>
+        <figure class="frame frame--photo shot fill">
+          <img class="frame__img" src="img/finanzas-dark.webp" width="1600" height="1025" alt="Finanzas, la app de escritorio que el paquete toma como referencia: sidebar, resumen del mes y movimientos" loading="lazy" data-source="client" data-subject="Finanzas desktop app">
+        </figure>
+      </div>
+      <div class="grid grid--top">
+        <div class="card m-nolift app-card span-7">
+          <div class="h3-row"><h3>Prompt para tu agente</h3><span class="badge badge--accent">Copia y pega</span></div>
+          <p>Cambia la última línea por la descripción de tu app.</p>
+          <div class="code code--prompt"><pre><code>Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
 
 1. Instala las skills del paquete:
    npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint diseno-sin-slop ux-shell-escritorio registro-comandos tauri-escritorio mcp-para-app qa-visual-loop -y
@@ -202,205 +224,136 @@
 6. Desde la fase 3, corre el ciclo de qa-visual-loop en cada cambio visual y repite hasta que la tabla de paridad esté completa.
 7. No hagas push ni abras PR sin preguntarme.
 
-Mi app: [qué hace, para quién y sus pantallas principales]</code></pre>
-        <span class="copy-wrap">
-          <button class="copy" type="button" command="--copy" commandfor="prompt" aria-label="Copiar el prompt"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <span class="tip" role="status"></span>
-        </span>
-      </div>
-      <p class="muted" style="margin-top: 8px">Cambia la última línea por la descripción de tu app.</p>
-    </div>
-  </section>
+Mi app: [qué hace, para quién y sus pantallas principales]</code></pre><button class="copy" type="button" data-copy="Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
 
-  <section id="paquete" aria-labelledby="paquete-title">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="paquete-title">El paquete de apps de escritorio</h2>
-        <p>Juntas las ordena <code>app-escritorio-blueprint</code>. Cada una también funciona sola: copia su comando.</p>
-      </div>
-      <figure class="shot">
-        <picture>
-          <source srcset="img/finanzas-dark.webp" media="(prefers-color-scheme: dark)">
-          <img src="img/finanzas-light.webp" width="1600" height="1025" alt="Finanzas, la app de referencia: sidebar con cuentas, tira de métricas y movimientos del mes." fetchpriority="high">
-        </picture>
-        <figcaption>Finanzas, la app de referencia del paquete. Tu agente parte de aquí y lo traduce a tu dominio.</figcaption>
-      </figure>
-      <div class="table">
-        <table>
-          <thead><tr><th scope="col">Skill</th><th scope="col">Qué hace</th><th scope="col">Instalar solo esta</th></tr></thead>
-          <tbody>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/app-escritorio-blueprint/SKILL.md">app-escritorio-blueprint</a><small>v1.0</small></td>
-              <td class="what">La entrada. Mapea todo lo que tiene Finanzas a tu app nueva y arma el plan por fases que usa las demás.</td>
-              <td class="install"><div><code id="cmd-app-escritorio-blueprint">npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-app-escritorio-blueprint" aria-label="Copiar el comando para instalar app-escritorio-blueprint"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/diseno-sin-slop/SKILL.md">diseno-sin-slop</a><small>v1.0</small></td>
-              <td class="what">Tokens, <code>DESIGN.md</code>, lista de prohibidos y auditoría para que tu app no parezca hecha por IA.</td>
-              <td class="install"><div><code id="cmd-diseno-sin-slop">npx skills add Leoglez10/agent-skills --skill diseno-sin-slop</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-diseno-sin-slop" aria-label="Copiar el comando para instalar diseno-sin-slop"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/ux-shell-escritorio/SKILL.md">ux-shell-escritorio</a><small>v1.0</small></td>
-              <td class="what">Sidebar plegable, Ajustes por pestañas, diálogos nativos y deshacer desde el toast en vez de “¿estás seguro?”.</td>
-              <td class="install"><div><code id="cmd-ux-shell-escritorio">npx skills add Leoglez10/agent-skills --skill ux-shell-escritorio</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-ux-shell-escritorio" aria-label="Copiar el comando para instalar ux-shell-escritorio"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/registro-comandos/SKILL.md">registro-comandos</a><small>v1.0</small></td>
-              <td class="what">Un solo registro para el menú nativo, la paleta ⌘K y la tabla de atajos, con Ctrl en Windows y Linux.</td>
-              <td class="install"><div><code id="cmd-registro-comandos">npx skills add Leoglez10/agent-skills --skill registro-comandos</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-registro-comandos" aria-label="Copiar el comando para instalar registro-comandos"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/tauri-escritorio/SKILL.md">tauri-escritorio</a><small>v1.0</small></td>
-              <td class="what">Ventanas, icono en la barra de menús, captura rápida con atajo global, avisos y actualizaciones firmadas.</td>
-              <td class="install"><div><code id="cmd-tauri-escritorio">npx skills add Leoglez10/agent-skills --skill tauri-escritorio</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-tauri-escritorio" aria-label="Copiar el comando para instalar tauri-escritorio"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md">mcp-para-app</a><small>v1.0</small></td>
-              <td class="what">Servidor MCP en Rust que comparte el núcleo de tu app, para que tus agentes lean y operen sus datos.</td>
-              <td class="install"><div><code id="cmd-mcp-para-app">npx skills add Leoglez10/agent-skills --skill mcp-para-app</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-mcp-para-app" aria-label="Copiar el comando para instalar mcp-para-app"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md">qa-visual-loop</a><small>v1.0</small></td>
-              <td class="what">Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro hasta la paridad.</td>
-              <td class="install"><div><code id="cmd-qa-visual-loop">npx skills add Leoglez10/agent-skills --skill qa-visual-loop</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-qa-visual-loop" aria-label="Copiar el comando para instalar qa-visual-loop"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+1. Instala las skills del paquete:
+   npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint diseno-sin-slop ux-shell-escritorio registro-comandos tauri-escritorio mcp-para-app qa-visual-loop -y
+   Si npx no está disponible, clona https://github.com/Leoglez10/agent-skills y copia esas 7 carpetas completas a tu directorio de skills.
+2. Si no ves las skills en esta sesión, lee los SKILL.md directamente desde donde se instalaron. Empieza por app-escritorio-blueprint y su references/inventario-finanzas.md.
+3. Hazme la entrevista corta de esa skill, una pregunta a la vez, y espera mis respuestas.
+4. Arma el mapa de paridad (pieza de Finanzas → pieza de mi app) y el plan por fases en odd/tasks/[nombre-de-la-app].md.
+5. Avanza fase por fase cargando la skill que indica cada una. Un commit por tarea, con su verificación (tests, QA en PASS o capturas).
+6. Desde la fase 3, corre el ciclo de qa-visual-loop en cada cambio visual y repite hasta que la tabla de paridad esté completa.
+7. No hagas push ni abras PR sin preguntarme.
 
-  <section id="otras" aria-labelledby="otras-title">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="otras-title">Otras skills</h2>
-        <p>Para documentar y presentar cualquier repositorio.</p>
-      </div>
-      <div class="table">
-        <table>
-          <thead><tr><th scope="col">Skill</th><th scope="col">Qué hace</th><th scope="col">Instalar</th></tr></thead>
-          <tbody>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/readme-completo/SKILL.md">readme-completo</a><small>v2.4</small></td>
-              <td class="what">Inspecciona el repositorio real y crea o actualiza un <code>README.md</code> verificable; nunca inventa comandos ni licencias.</td>
-              <td class="install"><div><code id="cmd-readme-completo">npx skills add Leoglez10/agent-skills --skill readme-completo</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-readme-completo" aria-label="Copiar el comando para instalar readme-completo"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-            <tr>
-              <td class="name"><a href="https://github.com/Leoglez10/agent-skills/blob/main/repo-presentacion/SKILL.md">repo-presentacion</a><small>v1.0</small></td>
-              <td class="what">Audita cómo se ve el repo en GitHub (About, topics, social preview, releases) y entrega comandos <code>gh</code> listos.</td>
-              <td class="install"><div><code id="cmd-repo-presentacion">npx skills add Leoglez10/agent-skills --skill repo-presentacion</code><span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="cmd-repo-presentacion" aria-label="Copiar el comando para instalar repo-presentacion"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span></div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section id="instalacion" aria-labelledby="inst-title">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="inst-title">Instalación</h2>
-        <p>Sirve con cualquier agente que lea skills por carpeta (<code>carpeta/SKILL.md</code>). No hay build ni dependencias.</p>
-      </div>
-      <div class="two">
-        <div>
-          <h3>Con npx</h3>
-          <p>Instala todo y elige tus agentes. Agrega <code>--list</code> para ver las skills sin instalar nada.</p>
-          <div class="code">
-            <pre><code id="npx-all">npx skills add Leoglez10/agent-skills</code></pre>
-            <span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="npx-all" aria-label="Copiar el comando para instalar todo"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span>
-          </div>
+Mi app: [qué hace, para quién y sus pantallas principales]" aria-label="Copiar el prompt para el agente"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div>
         </div>
-        <div>
-          <h3>A mano</h3>
-          <p>Copia la carpeta completa de la skill, con sus <code>references/</code> y <code>assets/</code>.</p>
-          <div class="code">
-            <pre><code id="manual">git clone https://github.com/Leoglez10/agent-skills.git
-cp -r agent-skills/diseno-sin-slop ~/.claude/skills/</code></pre>
-            <span class="copy-wrap"><button class="copy" type="button" command="--copy" commandfor="manual" aria-label="Copiar los comandos de instalación manual"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tip" role="status"></span></span>
-          </div>
-          <div class="table dirs">
-            <table>
-              <thead><tr><th scope="col">Agente</th><th scope="col">Carpeta</th></tr></thead>
-              <tbody>
-                <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td></tr>
-                <tr><td>OpenCode</td><td><code>~/.config/opencode/skills/</code></td></tr>
-                <tr><td>Otros</td><td><code>~/.agents/skills/</code></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="card app-card span-5">
+          <h3>Qué instala</h3>
+          <p>Cada una sirve sola; juntas las ordena <code>app-escritorio-blueprint</code>.</p>
+          <ul class="pack-list"><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/app-escritorio-blueprint/SKILL.md"><code>app-escritorio-blueprint</code></a> — La entrada: mapea Finanzas a tu app y arma el plan por fases.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/diseno-sin-slop/SKILL.md"><code>diseno-sin-slop</code></a> — Tokens, DESIGN.md y auditoría contra el look hecho por IA.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/ux-shell-escritorio/SKILL.md"><code>ux-shell-escritorio</code></a> — Sidebar, Ajustes por pestañas, diálogos y deshacer desde el toast.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/registro-comandos/SKILL.md"><code>registro-comandos</code></a> — Un registro para menú nativo, ⌘K y la tabla de atajos.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/tauri-escritorio/SKILL.md"><code>tauri-escritorio</code></a> — Ventanas, bandeja, captura rápida, avisos y actualizaciones.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md"><code>mcp-para-app</code></a> — Servidor MCP que comparte el núcleo de la app.</li><li><a class="link" href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md"><code>qa-visual-loop</code></a> — Scripts PASS/FAIL y capturas claro/oscuro hasta la paridad.</li></ul>
+          <p class="pack-note">¿Solo quieres una? Cada tarjeta del <a class="link" href="#skills">catálogo</a> trae su comando, o usa <code>npx skills add Leoglez10/agent-skills --skill &lt;nombre&gt;</code>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="preguntas" aria-labelledby="faq-title">
+  <section class="section" id="instalacion" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="install-title">
+    <div class="wrap mo-pc__grid">
+      <div class="mo-pc__text">
+        <p class="t-label muted eyebrow">Puesta en marcha</p>
+        <h2 id="install-title">Instalación</h2>
+        <p class="pc-intro">Necesitas un agente de código que soporte skills por carpeta (<code>carpeta/SKILL.md</code>). No hay runtime ni compilación.</p>
+        <ol class="mo-pc__steps">
+          <li class="mo-pc__step">
+            <h3>Con <code>npx</code></h3><span class="badge badge--accent pc-badge">Recomendada</span>
+            <p>Un solo comando clona, detecta tus agentes e instala.</p>
+            <figure class="mo-pc__visual pc-term">
+              <div class="code"><pre><code><span class="sig">$</span> npx skills add Leoglez10/agent-skills</code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills" aria-label="Copiar el comando"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div>
+              <div class="code"><pre><code><span class="cmt"># Ver qué skills hay sin instalar nada</span>
+<span class="sig">$</span> npx skills add Leoglez10/agent-skills --list</code></pre><button class="copy" type="button" data-copy="npx skills add Leoglez10/agent-skills --list" aria-label="Copiar el comando para listar skills"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div>
+            </figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>Manual</h3>
+            <p>Clona el repositorio y copia la carpeta completa de la skill.</p>
+            <figure class="mo-pc__visual pc-term">
+              <div class="code"><pre><code><span class="sig">$</span> git clone https://github.com/Leoglez10/agent-skills.git
+<span class="sig">$</span> cp -r agent-skills/readme-completo ~/.claude/skills/</code></pre><button class="copy" type="button" data-copy="git clone https://github.com/Leoglez10/agent-skills.git
+cp -r agent-skills/readme-completo ~/.claude/skills/" aria-label="Copiar los comandos de instalación manual"><svg class="ico-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1"/></svg><svg class="ico-done" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></button></div>
+              <table class="agent-dirs">
+                <caption class="sr-only">Directorio de skills según el agente</caption>
+                <thead><tr><th scope="col">Agente</th><th scope="col">Directorio</th></tr></thead>
+                <tbody>
+                  <tr><td>OpenCode</td><td><code>~/.config/opencode/skills/</code></td></tr>
+                  <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td></tr>
+                  <tr><td>Genérico</td><td><code>~/.agents/skills/</code></td></tr>
+                </tbody>
+              </table>
+            </figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>Copia la carpeta entera, no solo el <code>SKILL.md</code>.</h3>
+            <p>Sin <code>references/</code> al lado, la skill queda incompleta y pierde el conocimiento que carga bajo demanda. El agente la detecta automáticamente en la próxima sesión.</p>
+            <figure class="mo-pc__visual pc-term">
+              <ul class="tree" role="img" aria-label="La carpeta readme-completo con SKILL.md y sus 8 referencias">
+                <li class="tree__dir">readme-completo/</li>
+                <li class="tree__file tree__file--on">SKILL.md</li>
+                <li class="tree__dir tree__in">references/</li>
+                <li class="tree__file tree__in2">badges-and-credits.md</li>
+                <li class="tree__file tree__in2">data-and-security.md</li>
+                <li class="tree__file tree__in2">developer-documentation.md</li>
+                <li class="tree__file tree__in2">readme-structure.md</li>
+                <li class="tree__file tree__in2">repository-inspection.md</li>
+                <li class="tree__file tree__in2">skill-projects.md</li>
+                <li class="tree__file tree__in2">user-documentation.md</li>
+                <li class="tree__file tree__in2">writing-style.md</li>
+              </ul>
+            </figure>
+          </li>
+        </ol>
+      </div>
+      <div class="mo-pc__visuals frame"></div>
+    </div>
+  </section>
+
+  <section class="section" id="principios" aria-labelledby="principles-title">
     <div class="wrap">
-      <div class="head"><h2 id="faq-title">Preguntas</h2></div>
-      <div class="faq">
-        <details><summary>¿Mi agente copia Finanzas tal cual?</summary><p>No. Copia la estructura y el criterio (sidebar, ajustes, comandos, diseño, ciclo de QA), no el nombre, la marca ni los datos. Cada pieza se traduce a tu dominio o se descarta con un motivo escrito.</p></details>
-        <details><summary>Instalé las skills y el agente no las ve</summary><p>Los agentes cargan las skills al iniciar la sesión. En esa misma sesión el agente las lee como archivos (el prompt ya se lo pide); en la siguiente se activan solas.</p></details>
-        <details><summary>¿Tengo que usar Tauri?</summary><p>Es el stack por defecto (Tauri 2 + Svelte + Rust). Con otro stack siguen sirviendo el diseño, la UX, el registro de comandos y el ciclo de QA; el agente adapta el resto.</p></details>
-        <details><summary>¿Las capturas funcionan en Windows y Linux?</summary><p>Los scripts de QA que dan PASS o FAIL funcionan igual. La captura automática de pantallas usa <code>screencapture</code>, que solo existe en macOS; en otros sistemas se captura con la herramienta del SO.</p></details>
+      <div class="section-head pr-head">
+        <p class="t-label muted eyebrow">Cómo están construidas</p>
+        <h2 id="principles-title" class="pr-title mo-lt__type" data-moment="liquid-type" data-moment-opts='{"strength": 1}'>Principios de diseño</h2>
+        <p>Una skill monolítica ocupa contexto del agente incluso en las partes que ese proyecto no necesita. Estas están partidas en núcleo y conocimiento especializado.</p>
+      </div>
+      <div class="grid pr-grid">
+        <div class="pr span-3"><span class="sk-n mono">01</span><h3>LLM-first, no prosa</h3><p>El cuerpo son instrucciones ejecutables por un modelo: reglas, gates y checklists. No un tutorial.</p></div>
+        <div class="pr span-3"><span class="sk-n mono">02</span><h3>Progressive disclosure</h3><p>El <code>SKILL.md</code> es el núcleo y dice cuándo cargar cada referencia. Lo especializado entra solo si hace falta.</p></div>
+        <div class="pr span-3"><span class="sk-n mono">03</span><h3>Cero documentación falsa</h3><p>Toda afirmación técnica sale del repositorio real. Si no se puede verificar, no se presenta como hecho.</p></div>
+        <div class="pr span-3"><span class="sk-n mono">04</span><h3>Sin build, sin runtime</h3><p>Markdown y frontmatter. Copias la carpeta, el agente la lee. No hay instalación de dependencias.</p></div>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
+<footer class="footer closing" id="contact" aria-labelledby="close-h">
   <div class="wrap">
-    <span>Apache-2.0 · Leo ✕ Claude</span>
-    <nav aria-label="Enlaces del proyecto">
-      <a href="https://github.com/Leoglez10/agent-skills">Repositorio</a>
-      <a href="https://github.com/Leoglez10/agent-skills/blob/main/README.md">README</a>
-      <a href="https://github.com/Leoglez10/agent-skills/issues">Issues</a>
-    </nav>
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Escríbelas una vez. Tu agente las usa siempre.</h2>
+        <p class="t-lead">Si una skill te sirve, ábrela, léela y adáptala a tu flujo. El formato es el contrato.</p>
+      </div>
+      <div class="btn-row"><a class="btn btn--primary btn--xl" href="https://github.com/Leoglez10/agent-skills">Abrir en GitHub<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="https://github.com/Leoglez10/agent-skills/blob/main/CONTRIBUTING.md">Cómo contribuir</a></div>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-6 stack-4">
+          <a class="nav__logo" href="#top"><svg class="logo-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 11h9M9 16h14M9 21h6"/></svg>agent-skills</a>
+          <p class="footer__lede">Apache-2.0 · Leoglez10</p>
+        </div>
+        <div class="span-3 start-7 footer__col"><h3>Proyecto</h3><ul><li><a href="https://github.com/Leoglez10/agent-skills">Repositorio</a></li><li><a href="https://github.com/Leoglez10/agent-skills/blob/main/README.md">README</a></li><li><a href="https://github.com/Leoglez10/agent-skills/blob/main/LICENSE">Licencia</a></li><li><a href="https://github.com/Leoglez10/agent-skills/issues">Issues</a></li></ul></div>
+        <div class="span-3 footer__col"><h3>En esta página</h3><ul><li><a href="#skills">Skills</a></li><li><a href="#apps-escritorio">Apps de escritorio</a></li><li><a href="#instalacion">Instalación</a></li><li><a href="#principios">Principios</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Leoglez10 · Apache-2.0</span>
+        <p class="sr-only" role="status" id="copy-status"></p>
+        <span class="credits">Diseño con <a href="https://github.com/Leonxlnx/taste-skill">taste-skill</a> (MIT)</span>
+      </div>
+    </div>
   </div>
 </footer>
 
-<script>
-  // Copy buttons: Invoker Commands (command="--copy" commandfor="<id>") with a click fallback.
-  const timers = new WeakMap();
-  let lastMessage = "";
-  function report(button, ok) {
-    const tip = button.nextElementSibling;
-    clearTimeout(timers.get(button));
-    button.removeAttribute("data-copied");
-    let message = ok ? "Copiado" : "No se pudo copiar";
-    if (message === lastMessage) message += " "; // VoiceOver skips a repeated message
-    lastMessage = message;
-    tip.textContent = "";
-    if (ok) button.setAttribute("data-copied", "");
-    requestAnimationFrame(() => (tip.textContent = message));
-    timers.set(button, setTimeout(() => { button.removeAttribute("data-copied"); tip.textContent = ""; }, 2000));
-  }
-  function legacyCopy(text) {
-    const previousFocus = document.activeElement;
-    const field = Object.assign(document.createElement("textarea"), { value: text });
-    field.setAttribute("readonly", "");
-    field.style.cssText = "position:fixed;inset-block-start:0;opacity:0";
-    document.body.append(field);
-    field.select();
-    try { return document.execCommand("copy"); } finally { field.remove(); previousFocus?.focus({ preventScroll: true }); }
-  }
-  async function copy(button, target) {
-    const text = target.innerText.trim();
-    if (!text) return;
-    try {
-      try { await navigator.clipboard.writeText(text); } catch { if (!legacyCopy(text)) throw new Error("copy failed"); }
-      report(button, true);
-    } catch { report(button, false); }
-  }
-  if ("CommandEvent" in window) {
-    document.addEventListener("command", e => { if (e.command === "--copy") copy(e.source, e.target); }, true);
-  } else {
-    document.addEventListener("click", e => {
-      if (e.defaultPrevented) return;
-      const button = e.target.closest('button[command="--copy"]');
-      const target = button && document.getElementById(button.getAttribute("commandfor"));
-      if (target) copy(button, target);
-    });
-  }
-</script>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script src="copy.js" defer></script>
 </body>
 </html>
