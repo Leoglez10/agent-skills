@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "APP",
+  "identifier": "io.github.OWNER.app",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "APP",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 900,
+        "minHeight": 600,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "trafficLightPosition": { "x": 20, "y": 24 },
+        "create": false
+      },
+      {
+        "label": "quick",
+        "title": "Captura rápida",
+        "url": "index.html#quick",
+        "create": false,
+        "width": 640,
+        "height": 236,
+        "resizable": false,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "center": true,
+        "shadow": true
+      }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "createUpdaterArtifacts": true,
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "macOS": { "minimumSystemVersion": "11.0" },
+    "category": "Productivity",
+    "shortDescription": "One line that says what it does"
+  },
+  "mainBinaryName": "app",
+  "plugins": {
+    "updater": {
+      "pubkey": "PASTE THE PUBLIC KEY FROM `pnpm tauri signer generate`",
+      "endpoints": ["https://github.com/OWNER/REPO/releases/latest/download/latest.json"]
+    }
+  }
+}
