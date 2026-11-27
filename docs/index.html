@@ -333,6 +333,11 @@
   }
   .install-card > p { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
 
+  .pack-list { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+  .pack-list a { color: var(--text); text-decoration: none; }
+  .pack-list a:hover { text-decoration: underline; }
+  .code-block.prompt pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
   .code-block {
     position: relative;
     margin-top: 16px;
@@ -474,6 +479,7 @@
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
       <a href="#skills">Skills</a>
+      <a href="#apps-escritorio">Apps de escritorio</a>
       <a href="#instalacion">Instalación</a>
       <a href="#principios">Principios</a>
       <a class="nav-cta" href="https://github.com/Leoglez10/agent-skills">GitHub ↗</a>
@@ -508,7 +514,7 @@
         </a>
       </div>
       <ul class="hero-facts">
-        <li>2 skills</li>
+        <li>9 skills</li>
         <li>Apache-2.0</li>
         <li>sin build</li>
         <li>sin dependencias</li>
@@ -609,6 +615,71 @@
           </div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- Paquete: apps de escritorio -->
+  <section id="apps-escritorio" aria-labelledby="apps-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Paquete de 7 skills</p>
+        <h2 id="apps-title">Crea una app de escritorio como Finanzas</h2>
+        <p>
+          Siete skills que capturan el diseño, la UX y la arquitectura de Finanzas. Pega el prompt en tu agente,
+          dentro de la carpeta del proyecto nuevo: instala el paquete, lee las skills y te acompaña fase por fase
+          hasta que tu app tenga lo mismo que Finanzas.
+        </p>
+      </div>
+
+      <div class="install-grid">
+        <div class="install-card">
+          <h3>Prompt para tu agente <span class="badge">Copia y pega</span></h3>
+          <p>Cambia la última línea por la descripción de tu app.</p>
+          <div class="code-block prompt">
+            <pre><code>Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
+
+1. Instala las skills del paquete:
+   npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint diseno-sin-slop ux-shell-escritorio registro-comandos tauri-escritorio mcp-para-app qa-visual-loop -y
+   Si npx no está disponible, clona https://github.com/Leoglez10/agent-skills y copia esas 7 carpetas completas a tu directorio de skills.
+2. Si no ves las skills en esta sesión, lee los SKILL.md directamente desde donde se instalaron. Empieza por app-escritorio-blueprint y su references/inventario-finanzas.md.
+3. Hazme la entrevista corta de esa skill, una pregunta a la vez, y espera mis respuestas.
+4. Arma el mapa de paridad (pieza de Finanzas → pieza de mi app) y el plan por fases en odd/tasks/[nombre-de-la-app].md.
+5. Avanza fase por fase cargando la skill que indica cada una. Un commit por tarea, con su verificación (tests, QA en PASS o capturas).
+6. Desde la fase 3, corre el ciclo de qa-visual-loop en cada cambio visual y repite hasta que la tabla de paridad esté completa.
+7. No hagas push ni abras PR sin preguntarme.
+
+Mi app: [qué hace, para quién y sus pantallas principales]</code></pre>
+            <button class="copy-btn" type="button" data-copy="Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
+
+1. Instala las skills del paquete:
+   npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint diseno-sin-slop ux-shell-escritorio registro-comandos tauri-escritorio mcp-para-app qa-visual-loop -y
+   Si npx no está disponible, clona https://github.com/Leoglez10/agent-skills y copia esas 7 carpetas completas a tu directorio de skills.
+2. Si no ves las skills en esta sesión, lee los SKILL.md directamente desde donde se instalaron. Empieza por app-escritorio-blueprint y su references/inventario-finanzas.md.
+3. Hazme la entrevista corta de esa skill, una pregunta a la vez, y espera mis respuestas.
+4. Arma el mapa de paridad (pieza de Finanzas → pieza de mi app) y el plan por fases en odd/tasks/[nombre-de-la-app].md.
+5. Avanza fase por fase cargando la skill que indica cada una. Un commit por tarea, con su verificación (tests, QA en PASS o capturas).
+6. Desde la fase 3, corre el ciclo de qa-visual-loop en cada cambio visual y repite hasta que la tabla de paridad esté completa.
+7. No hagas push ni abras PR sin preguntarme.
+
+Mi app: [qué hace, para quién y sus pantallas principales]" aria-label="Copiar el prompt para el agente">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.5" y="5.5" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10.5 5.5v-1a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 4.5V9a1.5 1.5 0 0 0 1.5 1.5h1" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="install-card">
+          <h3>Qué instala</h3>
+          <p>Cada una sirve sola; juntas las ordena <code>app-escritorio-blueprint</code>.</p>
+          <ul class="pack-list">
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/app-escritorio-blueprint/SKILL.md"><code>app-escritorio-blueprint</code></a> — La entrada: mapea Finanzas a tu app y arma el plan por fases.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/diseno-sin-slop/SKILL.md"><code>diseno-sin-slop</code></a> — Tokens, DESIGN.md y auditoría contra el look hecho por IA.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/ux-shell-escritorio/SKILL.md"><code>ux-shell-escritorio</code></a> — Sidebar, Ajustes por pestañas, diálogos y deshacer desde el toast.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/registro-comandos/SKILL.md"><code>registro-comandos</code></a> — Un registro para menú nativo, ⌘K y la tabla de atajos.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/tauri-escritorio/SKILL.md"><code>tauri-escritorio</code></a> — Ventanas, bandeja, captura rápida, avisos y actualizaciones.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/mcp-para-app/SKILL.md"><code>mcp-para-app</code></a> — Servidor MCP que comparte el núcleo de la app.</li>
+            <li><a href="https://github.com/Leoglez10/agent-skills/blob/main/qa-visual-loop/SKILL.md"><code>qa-visual-loop</code></a> — Scripts PASS/FAIL y capturas claro/oscuro hasta la paridad.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>

@@ -43,6 +43,28 @@ Siete skills que capturan el diseño, la UX y la arquitectura de [Finanzas](http
 | [`mcp-para-app`](./mcp-para-app/SKILL.md) | 1.0 | Servidor MCP en Rust que comparte el núcleo de la app, con estado "conectado" en Ajustes | `servidor MCP`, `agentes IA`, `rmcp` |
 | [`qa-visual-loop`](./qa-visual-loop/SKILL.md) | 1.0 | Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro | `QA visual`, `capturas claro y oscuro`, `paridad` |
 
+#### Empezar una app nueva con el paquete
+
+Abre tu agente dentro de la carpeta del proyecto nuevo y pega este prompt. Cambia la última línea por la descripción de tu app. El agente instala las 7 skills, las lee y te acompaña fase por fase hasta que la app tenga lo mismo que Finanzas.
+
+```text
+Quiero crear una app de escritorio nueva con el mismo diseño, UX y funcionamiento que Finanzas, usando el paquete de skills de Leoglez10/agent-skills.
+
+1. Instala las skills del paquete:
+   npx skills add Leoglez10/agent-skills --skill app-escritorio-blueprint diseno-sin-slop ux-shell-escritorio registro-comandos tauri-escritorio mcp-para-app qa-visual-loop -y
+   Si npx no está disponible, clona https://github.com/Leoglez10/agent-skills y copia esas 7 carpetas completas a tu directorio de skills.
+2. Si no ves las skills en esta sesión, lee los SKILL.md directamente desde donde se instalaron. Empieza por app-escritorio-blueprint y su references/inventario-finanzas.md.
+3. Hazme la entrevista corta de esa skill, una pregunta a la vez, y espera mis respuestas.
+4. Arma el mapa de paridad (pieza de Finanzas → pieza de mi app) y el plan por fases en odd/tasks/[nombre-de-la-app].md.
+5. Avanza fase por fase cargando la skill que indica cada una. Un commit por tarea, con su verificación (tests, QA en PASS o capturas).
+6. Desde la fase 3, corre el ciclo de qa-visual-loop en cada cambio visual y repite hasta que la tabla de paridad esté completa.
+7. No hagas push ni abras PR sin preguntarme.
+
+Mi app: [qué hace, para quién y sus pantallas principales]
+```
+
+> 💡 Las skills se cargan al iniciar la sesión del agente. Por eso el paso 2: en la misma sesión donde se instalan, el agente las lee como archivos. En la siguiente sesión se activan solas con sus triggers.
+
 ### readme-completo en detalle
 
 Crea o mejora el README principal de cualquier proyecto después de **inspeccionar el repositorio real** (código, configuración, CI, lockfiles), no a partir de suposiciones.
