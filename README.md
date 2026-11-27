@@ -29,6 +29,20 @@ Cada skill vive en su propia carpeta y es autónoma: no hay build, no hay depend
 | [`readme-completo`](./readme-completo/SKILL.md) | 2.4 | Apache-2.0 | Inspecciona un repositorio real y crea o actualiza un `README.md` profesional, verificable y comprensible para usuarios no técnicos y desarrolladores. | `readme`, `crear readme`, `mejorar readme`, `documentar proyecto`, `documentación principal`, `actualizar readme`, `hacer readme completo` |
 | [`repo-presentacion`](./repo-presentacion/SKILL.md) | 1.0 | Apache-2.0 | Audita cómo se ve un repositorio en GitHub más allá del README (About, topics, social preview, releases, archivos de comunidad) y entrega mejoras con comandos `gh` listos, sin aplicarlas sin tu aprobación. | `presentación del repo`, `mejorar repo`, `repo completo`, `About`, `topics`, `social preview`, `releases`, `community standards` |
 
+### Paquete: apps de escritorio al estilo Finanzas
+
+Siete skills que capturan el diseño, la UX y la arquitectura de [Finanzas](https://github.com/Leoglez10/finanzas) para construir otras apps con el mismo nivel. `app-escritorio-blueprint` es la entrada: mapea Finanzas al dominio nuevo y aplica las demás en orden, con un ciclo de capturas que se repite hasta llegar a la paridad.
+
+| Skill | Versión | Qué hace | Se activa cuando dices |
+|---|---|---|---|
+| [`app-escritorio-blueprint`](./app-escritorio-blueprint/SKILL.md) | 1.0 | Orquesta el paquete: inventario de Finanzas, mapa de paridad y plan por fases | `app como Finanzas`, `nueva app de escritorio`, `blueprint de app` |
+| [`diseno-sin-slop`](./diseno-sin-slop/SKILL.md) | 1.0 | Tokens, `DESIGN.md`, lista de prohibidos y auditoría contra el look "hecho por IA" | `diseño muy IA`, `quitar AI slop`, `DESIGN.md`, `design tokens` |
+| [`ux-shell-escritorio`](./ux-shell-escritorio/SKILL.md) | 1.0 | Sidebar, Ajustes por pestañas, diálogos, toast con deshacer, textos y estados vacíos | `sidebar`, `ajustes`, `diálogos`, `deshacer` |
+| [`registro-comandos`](./registro-comandos/SKILL.md) | 1.0 | Un registro de comandos para menú nativo, ⌘K y tabla de atajos; ⌘ ↔ Ctrl | `paleta de comandos`, `⌘K`, `atajos`, `menú nativo` |
+| [`tauri-escritorio`](./tauri-escritorio/SKILL.md) | 1.0 | Tauri 2: ventanas, bandeja, captura rápida, atajo global, avisos, actualizaciones firmadas | `Tauri`, `bandeja`, `captura rápida`, `updater` |
+| [`mcp-para-app`](./mcp-para-app/SKILL.md) | 1.0 | Servidor MCP en Rust que comparte el núcleo de la app, con estado "conectado" en Ajustes | `servidor MCP`, `agentes IA`, `rmcp` |
+| [`qa-visual-loop`](./qa-visual-loop/SKILL.md) | 1.0 | Maneja la app real con scripts PASS/FAIL y captura cada pantalla en claro y oscuro | `QA visual`, `capturas claro y oscuro`, `paridad` |
+
 ### readme-completo en detalle
 
 Crea o mejora el README principal de cualquier proyecto después de **inspeccionar el repositorio real** (código, configuración, CI, lockfiles), no a partir de suposiciones.
@@ -164,6 +178,14 @@ agent-skills/
 │       ├── audit-commands.md
 │       ├── presentation-checklist.md
 │       └── topics-and-about.md
+├── app-escritorio-blueprint/ ← Entrada del paquete de apps de escritorio
+│   └── references/inventario-finanzas.md
+├── diseno-sin-slop/          ← references/ (investigación, auditoría) + assets/ (tokens.css, DESIGN.template.md)
+├── ux-shell-escritorio/      ← references/ (sidebar, ajustes, interacción) + assets/ (undo.ts, dialogs.ts)
+├── registro-comandos/        ← assets/ (commands.ts, keys.ts + test, menu.rs)
+├── tauri-escritorio/         ← references/piezas.md + assets/ (tauri.conf.json, lib.rs, tray.rs, updates.ts)
+├── mcp-para-app/             ← references/agentes.md + assets/ (main.rs, tools.rs)
+├── qa-visual-loop/           ← references/ciclo.md + assets/ (run.sh, shots.sh, shots.js, qa-template.js, winshot.swift)
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE                   ← Apache-2.0
